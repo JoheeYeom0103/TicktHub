@@ -87,8 +87,8 @@ body {
     padding: 0.7em 1em;
     border: 1px solid #555;
     border-radius: 3px;
-    background-color: #444;
-    color: #fff;
+    background-color: white;
+    color: black;
     margin-top: 0.5em;
 }
 
@@ -98,7 +98,7 @@ body {
     padding: 0.7em 1em;
     border: 1px solid #555;
     border-radius: 3px;
-    background-color: #444;
+    background-color: white;
     color: #fff;
     margin-top: 0.5em;
     resize: none;
@@ -122,4 +122,8 @@ body {
 
 .buttons:hover {
     background-color: #0056b3;
+}
+
+.invalid-input {
+    border: 2px solid #007bff !important;
 }

@@ -1,7 +1,7 @@
 /* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
+    background-color: #e42c2c;
     color: #fff;
     margin: 0;
     padding: 0;
@@ -115,11 +115,13 @@ input[type="text"] {
     background-color: #0056b3;
 }
 
-.cancel-button {
-    background-color: #ff0000;
-    margin-left: 0.5em;
-}
-
+/* <div> which is a immediate children of .new-method-container */
 .new-method-container > div {
     margin-bottom: 1em;
 }
+
+/* Add error styles for input fields */
+.error-input {
+    border: 2px solid #007bff !important;
+}
+

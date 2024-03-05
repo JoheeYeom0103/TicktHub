@@ -123,3 +123,7 @@ input[type="text"] {
 .new-method-container > div {
     margin-bottom: 1em;
 }
+
+.error-input {
+    border: 2px solid #007bff !important;
+}

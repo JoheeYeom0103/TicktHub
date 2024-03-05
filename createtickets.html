@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/leftnav.css">    
     <link rel="stylesheet" href="css/createTicketsStyling.css">
     <!-- stylesheets -->
+    <!-- JavaScript -->
+    <script src="script/createtickets.js"></script>
 </head>
 <body>
 
@@ -27,7 +29,7 @@
             <li><a href="seller_personalinfo.html">Personal Info</a></li>
             <li><a href="payoutinfo.html">Payout Info</a></li>
             <li><a href="#">Create Events</a></li>
-            <li><a href="salesinfo.html">Sales Info</a></li>
+            <li><a href="salesManageEvents.html">Sales & Manage Events</a></li>
         </ul>
     </nav>
 
@@ -37,40 +39,42 @@
             <h3 class="profile-heading">Create Events</h3>
 
             <!-- Event Information Form -->
-            <div class="event-info">
-                <label for="eventName">Event Name:</label>
-                <input type="text" id="eventName" name="eventName" placeholder="Enter event name">
-            </div>
+            <form id="event-form">
+                <div class="event-info">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" id="eventName" name="eventName" placeholder="Enter event name" required>
+                </div>
 
-            <div class="event-info">
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" placeholder="Enter location">
-            </div>
+                <div class="event-info">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter location" required>
+                </div>
 
-            <div class="event-info">
-                <label for="dateTime">Date & Time:</label>
-                <input type="datetime-local" id="dateTime" name="dateTime">
-            </div>
+                <div class="event-info">
+                    <label for="dateTime">Date & Time:</label>
+                    <input type="datetime-local" id="dateTime" name="dateTime" required>
+                </div>
 
-            <div class="event-info">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity">
-            </div>
+                <div class="event-info">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+                </div>
 
-            <div class="event-info">
-                <label for="cost">Cost:</label>
-                <input type="text" id="cost" name="cost" placeholder="Enter cost">
-            </div>
+                <div class="event-info">
+                    <label for="cost">Cost:</label>
+                    <input type="text" id="cost" name="cost" placeholder="Enter cost" required>
+                </div>
 
-            <div class="event-info">
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" placeholder="Enter description"></textarea>
-            </div>
+                <div class="event-info">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter description" required></textarea>
+                </div>
 
-            <div id="buttons">
-                <button type="button" class="buttons">Cancel</button>
-                <button type="submit" class="buttons">Post Request</button>
-            </div>
+                <div id="buttons">
+                    <button type="button" class="buttons">Cancel</button>
+                    <button type="submit" class="buttons" id="post-request-button">Post Request</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,7 +1,9 @@
+/* check if any box is checked */
 /* Ensure that JavaScript runs after the DOM is fully loaded */
 document.addEventListener("DOMContentLoaded", function() {
+    // If order-selected button is clicked, 
     document.getElementById("order-selected").addEventListener("click", function(event) {
-        // Get all checkboxes
+        
         var checkboxes = document.querySelectorAll(".cart-item input[type='checkbox']");
         var checked = false;
 

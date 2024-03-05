@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+
     // Function to create HTML elements for adding new payment method details
     function addNewMethod(paymentType) {
         // Get the container where the user clicked the "Add Method" button
@@ -73,22 +74,83 @@ document.addEventListener("DOMContentLoaded", function() {
         // Append the new method container inside the clicked method container
         methodContainer.appendChild(newMethodDiv);
 
-        // Add event listener for the save button
+        /* Form validation */
+        // When save button is clicked
         saveButton.addEventListener("click", function() {
-            // For demonstration purposes, you can simply log the input values
             var inputs = newMethodDiv.querySelectorAll("input");
+            var allValid = true;
+            // Iterate over every input fields
             inputs.forEach(function(input) {
-                console.log(input.previousSibling.textContent + ":", input.value);
+                // Check if the trimmed value of the input field is falsey (empty)
+                if (!input.value.trim()) {
+                    input.classList.add("error-input");
+                    allValid = false;
+                // Check digit requirements if applicable * Must have passed 'if empty' to be validated for digits *
+                } else {
+                    /* Parent element of <input> is <label> whcih has text content */
+                    /* DOMelement.parentElement.textContent.trim() - parent element's trimed text content */
+                    switch (input.parentElement.textContent.trim()) {
+                        case "Card Number:":
+                            /* 
+                                // Regular expression pattern //
+                                ^ asserts the start of the string
+                                * \d represents any digit character (equivalent to [0-9])
+                                * {16} specifies that exactly 16 occurrences of the preceding (\d are required)
+                                * $ asserts the end of the string
+                            
+                                * (RE).text(input.value.trim()): returns true if the input matches the RE, otherwise, returns false
+                            */
+                            if (!(/^\d{16}$/).test(input.value.trim())) {
+                                input.classList.add("error-input");
+                                allValid = false;
+                            } else {
+                                input.classList.remove("error-input");
+                            }
+                            break;
+                        case "Expiration Date:":
+                            var today = new Date();
+                            var inputDate = new Date(input.value.trim() + "/01");
+                            if (inputDate < today) {
+                                input.classList.add("error-input");
+                                allValid = false;
+                            } else {
+                                input.classList.remove("error-input");
+                            }
+                            break;
+                        case "Security Code (CVC):":
+                            if (!(/^\d{3}$/).test(input.value.trim())) {
+                                input.classList.add("error-input");
+                                allValid = false;
+                            } else {
+                                input.classList.remove("error-input");
+                            }
+                            break;
+                        case "Account Number:":
+                            if (!(/^\d{7,12}$/).test(input.value.trim())) {
+                                input.classList.add("error-input");
+                                allValid = false;
+                            } else {
+                                input.classList.remove("error-input");
+                            }
+                            break;
+                        default:
+                            input.classList.remove("error-input");
+                            break;
+                    }
+                }
             });
-        });
 
-        // Add event listener for the cancel button
-        cancelButton.addEventListener("click", function() {
-            // Remove the new method container
-            newMethodDiv.remove();
+            if (allValid) {
+                // Proceed with further actions such as saving the data
+                // SaveMethod(...);
+                inputs.forEach(function(input) {
+                    input.value = ""; // Clear input field
+                });
+            } else {
+                alert("Please correct the highlighted fields");
+            }
         });
     }
-
 
     // Function to create an input field with specified type, label, and placeholder
     function createInputField(type, label, placeholder) {
@@ -101,19 +163,22 @@ document.addEventListener("DOMContentLoaded", function() {
         return labelElement;
     }
 
-    // Add event listeners for "Add a New Method" buttons for each payment method
+    // If add method button in bank transfer is clicked, execute addMethod() function with 'bank-transfer' as a parameter value
     document.querySelector(".bank-transfer-method-container .add-method").addEventListener("click", function() {
         addNewMethod("bank-transfer");
     });
 
+    // If add method button in credit card is clicked, execute addMethod() function with 'credit-card' as a parameter value
     document.querySelector(".credit-card-method-container .add-method").addEventListener("click", function() {
         addNewMethod("credit-card");
     });
 
-    // Add event listener to allow only one checkbox to be checked
+    /* Only 1 checkbox box to be checked */
+    // Add a click event listener to every checkbox
     var checkboxes = document.querySelectorAll("input[type='checkbox']");
     checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener("click", function() {
+            // If a checkbox is clicked, all the other checkboxes are unchecked
             checkboxes.forEach(function(cb) {
                 if (cb !== checkbox) {
                     cb.checked = false;
