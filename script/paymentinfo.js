@@ -66,6 +66,10 @@ document.addEventListener("DOMContentLoaded", function() {
         var cancelButton = document.createElement("button");
         cancelButton.textContent = "Cancel";
         cancelButton.classList.add("add-method-button");
+        cancelButton.addEventListener("click", function() {
+            // Remove the new method container
+            methodContainer.removeChild(newMethodDiv);
+        });
 
         // Append buttons to the new method container
         newMethodDiv.appendChild(saveButton);
