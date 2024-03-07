@@ -1,6 +1,8 @@
 ## COSC 310 Two Possible Design Patterns for Project M3
 
-For our project we’re choosing the Model-View-Controller (MVC) design pattern as it’s the best for desktop and web applications. Some benefits of MVC specifically for our project (ticketing platform) include separation of concerns, flexibility, maintainability, code reusability, support for multiple platforms.
+For our project we’re choosing the Model-View-Controller (MVC) and observer design pattern.
+
+MVC is the best for desktop and web applications specifcally. Some benefits of MVC specifically for our project (ticketing platform) include separation of concerns, flexibility, maintainability, code reusability, support for multiple platforms.
 
 Separation of concerns includes:
 
@@ -26,7 +28,7 @@ Performance:
 
 Implementing the MVC design pattern for the Ticket purchasing platform adheres to industry standards, promotes code maintainability, and ensures a balance between reason (logical structure) and passion (user interface and experience)
 
-For our ticketing platform, TicketHub, our Model would consist of User, Event, and Transaction as shown below:
+For our ticketing platform, TicktHub, our Model would consist of User, Event, and Transaction as shown below:
 
 1.  Model:
 
@@ -42,7 +44,7 @@ For our ticketing platform, TicketHub, our Model would consist of User, Event, a
       - Handles the creation, modification, and review of events by sellers.
 
     - c.) Transaction Model:
-      - Manages transactions, including ticket purchases and refunds.
+      - Manages the funds transitioning from the buyer's specified payment option and into the seller's account.
       - Ensures real-time updates to the ticket inventory.
 
 For our project the View would consist of the User Interface as shown below:
@@ -52,6 +54,7 @@ For our project the View would consist of the User Interface as shown below:
      - Displays pages for browsing events, viewing tickets, and managing user profiles.
      - Provides a secure shopping cart for registered users during the purchasing process.
      - Displays confirmation messages for successful payments and transactions.
+     - The sign-up page will allow the guest user to join the platform as a buyer or seller
 
 The Controllers for our project consist of User Controller, Event Controller, Transaction Controller as shown below:
 
@@ -72,7 +75,7 @@ The Controllers for our project consist of User Controller, Event Controller, Tr
      - Manages real-time updates to the ticket inventory.
      - Facilitates refund processes in case of cancellations or issues with transactions.
 
-Another suitable design pattern for a ticketing platform, complementing the MVC pattern or used independently, is the "Observer Pattern." The Observer Pattern is particularly valuable when there is a need for one-to-many dependency between objects, and a change in one object triggers updates in multiple dependent objects. In the context of a ticketing platform, it can be applied to efficiently handle real-time updates, notifications, and event-driven functionalities. Here's how we could integrate the Observer Pattern:
+Another suitable design pattern for our platform TicktHub, complementing the MVC pattern or used independently, is the "Observer Pattern." The Observer Pattern is particularly valuable when there is a need for one-to-many dependency between objects, and a change in one object triggers updates in multiple dependent objects. In the context of a ticketing platform, it can be applied to efficiently handle real-time updates, notifications, and event-driven functionalities. Here's how we could integrate the Observer Pattern:
 
 1. Subject (Observable):
 
@@ -84,17 +87,17 @@ Another suitable design pattern for a ticketing platform, complementing the MVC 
 
    - a.) Buyer Observer:
 
-     - Receives updates when the ticket inventory changes (e.g., new tickets posted, tickets sold).
+     - Allows buyers to moniter their buyer-specific activities when the ticket inventory changes (e.g., new tickets posted, tickets sold).
      - Updates the user interface to display the latest ticket information.
 
    - b.) Seller Observer:
 
-     - Receives notifications about changes in events, ticket sales, and requests for event modifications.
+     - Allows sellers to moniter their seller-specific activities about changes in events, ticket sales, and requests for event modifications.
      - Updates the seller dashboard in real-time.
 
    - c.) Administrator Observer:
      - Monitors for notifications related to potential fraudulent activities or abnormal changes in ticketing statistics.
-     - Receives alerts for administrator-specific functionalities.
+     - Allows administrators to moniter for administrator-specific functionalities.
 
 3. Concrete Observers:
 
