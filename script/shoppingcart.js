@@ -1,4 +1,5 @@
 /* check if any box is checked */
+
 /* Ensure that JavaScript runs after the DOM is fully loaded */
 document.addEventListener("DOMContentLoaded", function() {
     // If order-selected button is clicked, 
