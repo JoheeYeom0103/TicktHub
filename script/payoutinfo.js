@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Create a heading for "Add New Method"
         var newMethodHeading = document.createElement("h3");
-        newMethodHeading.textContent = "Add New Method";
+        newMethodHeading.textContent = "Add A New Method";
         newMethodDiv.appendChild(newMethodHeading);
 
         // Create a div container for "Set As Default Method" checkbox and input fields
