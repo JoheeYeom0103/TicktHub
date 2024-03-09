@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
             newMethodDiv.appendChild(securityCodeInput);
             newMethodDiv.appendChild(document.createElement("br"));
         }
-
+        
         // Create a save button
         var saveButton = document.createElement("button");
         saveButton.textContent = "Save";
