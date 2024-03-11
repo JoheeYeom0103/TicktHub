@@ -92,12 +92,14 @@ Another suitable design pattern for our platform TicktHub, complementing the MVC
 
    - b.) Seller Observer:
 
-     - Allows sellers to moniter their seller-specific activities about changes in events, ticket sales, and requests for event modifications.
+     - Allows sellers to moniter their seller-specific activities about changes in events, ticket sales, and requests to administrators for event creation & modifications.
      - Updates the seller dashboard in real-time.
 
    - c.) Administrator Observer:
      - Monitors for notifications related to potential fraudulent activities or abnormal changes in ticketing statistics.
-     - Allows administrators to moniter for administrator-specific functionalities.
+     - Allows administrators to moniter for administrator-specific functionalities, such as
+       - administrators keeping track of user history/activities.
+       - administrators granting permission to seller's request for posting.
 
 3. Concrete Observers:
 
