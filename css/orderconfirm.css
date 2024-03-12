@@ -1,0 +1,25 @@
+   /* Body styles */
+   body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* Main container styles */
+#container {
+    flex: 1; /* Allow main content to take remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Order confirmation message styles */
+#order-confirmation-message {
+    margin-top: 2em;
+    text-align: center;
+}
