@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+.browseTicketsContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    margin-bottom: 10em;
+}
+.concert {
+    background-color: #333;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+.concert:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.concert img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.concert h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #fff;
+}
+.concert p {
+    margin-bottom: 10px;
+    color: #ccc;
+}
+.concert .btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+.concert .btn:hover {
+    background-color: #0056b3;
+}
+
+h3{
+    background-color: #007bff;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+}
+
+.search-bar {
+    margin-bottom: 1em;
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    padding: 8px;
+    border: none;
+    border-radius: 3px 0 0 3px;
+    flex:1;
+}
+
+.search-bar button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
