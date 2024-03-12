@@ -1,4 +1,3 @@
-/* payout info page javascript */
 document.addEventListener("DOMContentLoaded", function() {
 
     // Function to create HTML elements for adding new payment method details
