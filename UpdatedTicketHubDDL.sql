@@ -42,14 +42,18 @@ CREATE TABLE
 CREATE TABLE
     Event (
         EventID INT PRIMARY KEY,
+        AdminID INT,
+        Status ENUM ('Approved', 'Pending', 'Rejected'),
         EventName VARCHAR(100),
         Location VARCHAR(100),
-        DateTime DATETIME
+        DateTime DATETIME,
+        FOREIGN KEY (AdminID) REFERENCES Admin (AdminID)
     );
 
 CREATE TABLE
     TicketInfo (
         TicketID INT PRIMARY KEY,
+        SellerID INT,
         EventID INT,
         TicketName VARCHAR(100),
         TicketDescription VARCHAR(255),
@@ -64,11 +68,34 @@ CREATE TABLE
     Payment (
         PaymentID INT PRIMARY KEY,
         PaymentMethod VARCHAR(50),
+        PayoutID INT,
         BuyerID INT,
         Amount DECIMAL(10, 2),
         Status BOOLEAN,
         TransactionID INT,
-        FOREIGN KEY (BuyerID) REFERENCES Buyer (BuyerID)
+        FOREIGN KEY (BuyerID) REFERENCES Buyer (BuyerID),
+        FOREIGN KEY (PayoutID) REFERENCES Seller (SellerID)
+    );
+
+CREATE TABLE
+    CreditCard (
+        CardID INT PRIMARY KEY,
+        SetDefault BOOLEAN,
+        CardNumber VARCHAR(16),
+        ExpiryDate DATE,
+        CardHolderName VARCHAR(16),
+        CVC INT,
+        FOREIGN KEY (CardID) REFERENCES Payment (PaymentID)
+    );
+
+CREATE TABLE
+    BankTransfer (
+        BankID INT PRIMARY KEY,
+        SetDefault BOOLEAN,
+        BankName VARCHAR(16),
+        AccountHolderName VARCHAR(16),
+        AccountNumber VARCHAR(16),
+        FOREIGN KEY (BankID) REFERENCES Payment (PaymentID)
     );
 
 CREATE TABLE
@@ -156,11 +183,27 @@ VALUES
 
 -- Inserting into Event table
 INSERT INTO
-    Event (EventID, EventName, Location, DateTime)
+    Event (
+        EventID,
+        AdminID,
+        Status,
+        EventName,
+        Location,
+        DateTime
+    )
 VALUES
-    (1, 'Music Fest', 'Park A', '2024-05-20 18:00:00'),
+    (
+        1,
+        1,
+        'Approved',
+        'Music Fest',
+        'Park A',
+        '2024-05-20 18:00:00'
+    ),
     (
         2,
+        1,
+        'Approved',
         'Soccer Cup',
         'Stadium B',
         '2024-06-10 15:00:00'
@@ -170,6 +213,7 @@ VALUES
 INSERT INTO
     TicketInfo (
         TicketID,
+        SellerID,
         EventID,
         TicketName,
         TicketDescription,
@@ -182,6 +226,7 @@ VALUES
     (
         1,
         1,
+        1,
         'Concert',
         'Music event',
         50.00,
@@ -191,6 +236,7 @@ VALUES
     ),
     (
         2,
+        1,
         2,
         'Sports',
         'Sports event',
@@ -221,14 +267,68 @@ INSERT INTO
     Payment (
         PaymentID,
         PaymentMethod,
+        PayoutID,
         BuyerID,
         Amount,
         Status,
         TransactionID
     )
 VALUES
-    (1, 'Credit Card', 1, 100.00, 1, 123456),
-    (2, 'PayPal', 2, 25.00, 1, 789012);
+    (1, 'Credit Card', 1, 1, 100.00, 1, 123456),
+    (2, 'PayPal', 1, 2, 25.00, 1, 789012);
+
+-- Insert statement for CreditCard table
+INSERT INTO
+    CreditCard (
+        CardID,
+        SetDefault,
+        CardNumber,
+        ExpiryDate,
+        CardHolderName,
+        CVC
+    )
+VALUES
+    (
+        1,
+        TRUE,
+        '1234567812345678',
+        '2025-12-31',
+        'John Doe',
+        123
+    ),
+    (
+        2,
+        FALSE,
+        '9876543298765432',
+        '2024-11-30',
+        'Jane Smith',
+        456
+    );
+
+-- Insert statement for BankTransfer table
+INSERT INTO
+    BankTransfer (
+        BankID,
+        SetDefault,
+        BankName,
+        AccountHolderName,
+        AccountNumber
+    )
+VALUES
+    (
+        1,
+        TRUE,
+        'Bank of America',
+        'Alice Johns',
+        '1234567890123456'
+    ),
+    (
+        2,
+        FALSE,
+        'Chase Bank',
+        'Bob Wills',
+        '9876543210987654'
+    );
 
 -- Inserting into Cart table
 INSERT INTO
@@ -279,7 +379,10 @@ SELECT
 FROM
     Payment;
 
--- nothing is inside ticket info
+SELECT * FROM CreditCard;
+
+SELECT * FROM BankTransfer;
+
 SELECT
     *
 FROM
