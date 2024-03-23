@@ -89,54 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     /* Parent element of <input> is <label> whcih has text content */
                     /* DOMelement.parentElement.textContent.trim() - parent element's trimed text content */
-                    switch (input.parentElement.textContent.trim()) {
-                        case "Card Number:":
-                            /* 
-                                // Regular expression pattern //
-                                ^ asserts the start of the string
-                                * \d represents any digit character (equivalent to [0-9])
-                                * {16} specifies that exactly 16 occurrences of the preceding (\d are required)
-                                * $ asserts the end of the string
-                            
-                                * (RE).text(input.value.trim()): returns true if the input matches the RE, otherwise, returns false
-                            */
-                            if (!(/^\d{16}$/).test(input.value.trim())) {
-                                input.classList.add("error-input");
-                                allValid = false;
-                            } else {
-                                input.classList.remove("error-input");
-                            }
-                            break;
-                        case "Expiration Date:":
-                            var today = new Date();
-                            var inputDate = new Date(input.value.trim() + "/01");
-                            if (inputDate < today) {
-                                input.classList.add("error-input");
-                                allValid = false;
-                            } else {
-                                input.classList.remove("error-input");
-                            }
-                            break;
-                        case "Security Code (CVC):":
-                            if (!(/^\d{3}$/).test(input.value.trim())) {
-                                input.classList.add("error-input");
-                                allValid = false;
-                            } else {
-                                input.classList.remove("error-input");
-                            }
-                            break;
-                        case "Account Number:":
-                            if (!(/^\d{7,12}$/).test(input.value.trim())) {
-                                input.classList.add("error-input");
-                                allValid = false;
-                            } else {
-                                input.classList.remove("error-input");
-                            }
-                            break;
-                        default:
-                            input.classList.remove("error-input");
-                            break;
-                    }
+                    checkValidity();
                 }
             });
 
@@ -150,6 +103,58 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("Please correct the highlighted fields");
             }
         });
+    }
+
+    function checkValidity() {
+        switch (input.parentElement.textContent.trim()) {
+            case "Card Number:":
+                /* 
+                    // Regular expression pattern //
+                    ^ asserts the start of the string
+                    * \d represents any digit character (equivalent to [0-9])
+                    * {16} specifies that exactly 16 occurrences of the preceding (\d are required)
+                    * $ asserts the end of the string
+                
+                    * (RE).text(input.value.trim()): returns true if the input matches the RE, otherwise, returns false
+                */
+                if (!(/^\d{16}$/).test(input.value.trim())) {
+                    input.classList.add("error-input");
+                    allValid = false;
+                } else {
+                    input.classList.remove("error-input");
+                }
+                break;
+            case "Expiration Date:":
+                var today = new Date();
+                var inputDate = new Date(input.value.trim() + "/01");
+                if (inputDate < today) {
+                    input.classList.add("error-input");
+                    allValid = false;
+                } else {
+                    input.classList.remove("error-input");
+                }
+                break;
+            case "Security Code (CVC):":
+                if (!(/^\d{3}$/).test(input.value.trim())) {
+                    input.classList.add("error-input");
+                    allValid = false;
+                } else {
+                    input.classList.remove("error-input");
+                }
+                break;
+            case "Account Number:":
+                if (!(/^\d{7,12}$/).test(input.value.trim())) {
+                    input.classList.add("error-input");
+                    allValid = false;
+                } else {
+                    input.classList.remove("error-input");
+                }
+                break;
+            default:
+                input.classList.remove("error-input");
+                break;
+        }
+        return allValid;
     }
 
     // Function to create an input field with specified type, label, and placeholder
