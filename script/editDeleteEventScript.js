@@ -1,29 +1,32 @@
 function editData(button) { 
+
+    console.log("Edit Button Clicked");
     // Get the parent row of the clicked button 
     let row = button.parentNode.parentNode; 
-    
+
     // Get the cells within the row 
     let eventNameCell = row.cells[0]; 
     let eventLocationCell = row.cells[1]; 
     let eventDateTimeCell = row.cells[2]; 
     let eventQuantityCell = row.cells[3]; 
     let eventCostCell = row.cells[4]; 
-    
+
     // Get the input fields within the cells 
     let eventNameInput = eventNameCell.querySelector('.edit-event-name'); 
     let eventLocationInput = eventLocationCell.querySelector('.edit-event-location'); 
     let eventDateTimeInput = eventDateTimeCell.querySelector('.edit-event-date-time'); 
     let eventQuantityInput = eventQuantityCell.querySelector('.edit-event-quantity'); 
     let eventCostInput = eventCostCell.querySelector('.edit-event-cost'); 
-    
+
     // Populate the input fields with the current values
     // This way, the user can maintain current details if they would like
     eventNameInput.value = eventNameCell.querySelector('.event-name').textContent; 
     eventLocationInput.value = eventLocationCell.querySelector('.event-location').textContent; 
     eventDateTimeInput.value = eventDateTimeCell.querySelector('.event-date-time').textContent; 
     eventQuantityInput.value = eventQuantityCell.querySelector('.ticket-quantity').textContent; 
-    eventCostInput.value = eventCostCell.querySelector('.ticket-cost').textContent; 
-    
+    // Remove the dollar sign
+    eventCostInput.value = eventCostCell.querySelector('.ticket-cost').textContent.replace('$', '');
+
     // Validate input 
     function validateInput(input, promptMessage) {
         // Remove the invalid-input class before validating
@@ -45,7 +48,8 @@ function editData(button) {
 
         // If the input is the event date and time
         if (input === eventDateTimeInput) {
-            let dateTimeRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+            //pattern for datetime allows for a T or a space
+            let dateTimeRegex =/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}$/;
             let selectedDateTime = new Date(newValue.trim()).getTime();
             let currentDateTime = new Date().getTime();
 
@@ -66,36 +70,45 @@ function editData(button) {
         return newValue;
     }
 
-    
+
     // Validate and update the event name
-    let eventName = validateInput(eventNameInput, "Enter the updated event name or press Cancel to leave it the same:");
+    let eventName = validateInput(eventNameInput, "Enter the updated event name or press OK to leave it the same:");
     if (eventName === null) return; // Cancelled, exit function
     eventNameInput.value = eventName;
-    
+    eventNameCell.querySelector('.event-name').textContent = eventName;
+
     // Validate and update the event location
-    let eventLocation = validateInput(eventLocationInput, "Enter the updated event location or press Cancel to leave it the same:");
+    let eventLocation = validateInput(eventLocationInput, "Enter the updated event location or press OK to leave it the same:");
     if (eventLocation === null) return; // Cancelled, exit function
     eventLocationInput.value = eventLocation;
-    
+    eventLocationCell.querySelector('.event-location').textContent = eventLocation;
+
     // Validate and update the event date and time
-    let eventDateTime = validateInput(eventDateTimeInput, "Enter the updated event date and time (YYYY-MM-DD HH:MM) or press Cancel to leave it the same:");
+    let eventDateTime = validateInput(eventDateTimeInput, "Enter the updated event date and time (YYYY-MM-DD HH:MM) or press OK to leave it the same:");
     if (eventDateTime === null) return; // Cancelled, exit function
     eventDateTimeInput.value = eventDateTime;
-    
+    eventDateTimeCell.querySelector('.event-date-time').textContent = eventDateTime;
+
     // Validate and update the quantity
-    let eventQuantity = validateInput(eventQuantityInput, "Enter the updated quantity or press Cancel to leave it the same:");
+    let eventQuantity = validateInput(eventQuantityInput, "Enter the updated quantity or press OK to leave it the same:");
     if (eventQuantity === null) return; // Cancelled, exit function
     eventQuantityInput.value = eventQuantity;
-    
+    eventQuantityCell.querySelector('.ticket-quantity').textContent = eventQuantity;
+
     // Validate and update the cost
-    let eventCost = validateInput(eventCostInput, "Enter the updated cost or press Cancel to leave it the same:");
+    let eventCost = validateInput(eventCostInput, "Enter the updated cost or press OK to leave it the same:");
     if (eventCost === null) return; // Cancelled, exit function
     eventCostInput.value = eventCost;
+    eventCostCell.querySelector('.ticket-cost').textContent = '$' + eventCost;
+
 }
 
 function deleteData(button) { 
     // Get the parent row of the clicked button 
     let row = button.parentNode.parentNode; 
+
+    // confirm with the user before deleting the event/ticket
+    if(confirm("Are you sure you want to delete this item?"))
     // Remove the row from the table 
     row.parentNode.removeChild(row); 
 } 
