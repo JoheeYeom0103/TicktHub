@@ -15,10 +15,10 @@
 </head>
 <body>
     <header>
-        <h1><a href="browseTickets.html" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
+        <h1><a href="browseTickets.php" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
         <ul>
             <!-- <li><a href="cart.html">View Cart</a></li>  -->
-            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="signup.php">Sign Up</a></li>
             
         </ul>
     </header>
@@ -32,7 +32,7 @@
             <input type="submit" value="Login">
         </form>
         <p>Don't have an account with us? Sign Up!</p>
-        <input type="button" value="Sign Up" onclick="window.location.href='signup.html';">
+        <input type="button" value="Sign Up" onclick="window.location.href='signup.php';">
     </div>
 <footer>
     <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>

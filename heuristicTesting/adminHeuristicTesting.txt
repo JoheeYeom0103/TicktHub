@@ -1,0 +1,31 @@
+User Heuristic Testing for Admin Dashboard:
+---------------------------------------------------
+
+1. Overview
+----------------------
+
+The heuristic testing of the administrator dashboard aimed to evaluate its usability and user experience.
+
+2. Key Findings
+----------------------
+
+Visibility of System Status: 
+- When tasks were completed like approving or denying an event, it is difficult for the user to see whether their actions were successful
+- A confirmation message or alert to let them know before they complete an action would be helpful
+
+User Control:
+- Users can easily navigate to and from their account page and the dashboard 
+- validation is in place to prevent bad input
+
+Overall function:
+- When users interact with the administrator dashboard all relevant information is being shown
+- On the user tab, the list of users is correctly displaying all data in the database
+- On the sales tab, sales data is correctly being calculated and returned from the database 
+- On the user request tab, administrators can easily reject and approve both exisitng and new events.
+  The data is being displayed correctly from the database and the button function to reject and approve
+  work as intended, changing the status of the event in the database and subsequent pages. 
+
+3. Potential Improvements:
+-----------------------
+- Adding alerts on successful admin changes (e.g. approving/rejecting an event)
+- Providing alerts before the admin completes an action to verify what they are about to dashboard

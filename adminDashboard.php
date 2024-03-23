@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <?php 
+    
+        // session logic
+        session_start(); 
+        if (isset($_SESSION["username"])){
+            $username = $_SESSION["username"];
+        }else{
+            $username = "null";
+        }
+    
+    ?>
     <meta charset="UTF-8">
     <title>Administrator Dashboard</title>
     
@@ -13,13 +25,15 @@
     <script src="script/adminDashboardScript.js"></script>
     <!-- Scripts -->
 
+    <?php include("php/adminAction.php"); ?>
+
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 <body>
     <header>
-        <h1><a href="browseTickets.html" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
+        <h1><a href="browseTickets.php" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
         <ul>
-            <li><a href="#">Admin @username</a></li> <!-- UPDATE W/ CORRECT LINK  -->
+            <li><a href="admin_personalinfo.php">Admin @<?php echo $username ?></a></li> <!-- UPDATE W/ CORRECT LINK  -->
         </ul>
     </header>
     <div class="adminContainer">
@@ -29,39 +43,30 @@
             <div class="tab" onclick="showTab('sales')">Average Sales</div>
             <div class="tab" onclick="showTab('requests')">User Requests</div>
         </div>
+        <!-- TODO: REPLACE THIS CONTENT WITH REAL DATA FROM THE DB -->
         <div class="tab-content active" id="users">
             <table>
                 <tr>
                     <th>User ID</th>
+                    <th>Username</th>
                     <th>Name</th>
                     <th>Email</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>john.doe@example.com</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>jane.smith@example.com</td>
-                </tr>
+                <?php
+                    displayUsers(); // Call the function to display users
+                ?>
             </table>
         </div>
+
         <div class="tab-content" id="sales">
             <table>
                 <tr>
                     <th>Month-Year</th>
                     <th>Average Sales</th>
                 </tr>
-                <tr>
-                    <td>January-2024</td>
-                    <td>$500</td>
-                </tr>
-                <tr>
-                    <td>February-2024</td>
-                    <td>$600</td>
-                </tr>
+               <?php 
+                    displayAverageSales();
+               ?>
             </table>
         </div>
         <div class="tab-content" id="requests">
@@ -70,17 +75,11 @@
                     <th>User ID</th>
                     <th>Request</th>
                     <th>Status</th>
+                    <th>Approve</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Ticket Sale</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ticket Sale</td>
-                    <td>Resolved</td>
-                </tr>
+               <?php 
+                    displayUserReqs();
+               ?>
             </table>
         </div>
     </div>

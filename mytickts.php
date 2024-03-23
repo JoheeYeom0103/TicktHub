@@ -16,8 +16,8 @@
     <h1>TicketHub</h1>
     <ul>
         <!-- The user must have been logged in -->
-        <li><a href="buyer_personalinfo.html">User</a></li>
-        <li><a href="shoppingcart.html">View Cart</a></li>
+        <li><a href="buyer_personalinfo.php">User</a></li>
+        <li><a href="shoppingcart.php">View Cart</a></li>
     </ul>
 </header>
 
@@ -25,8 +25,8 @@
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="buyer_personalinfo.html">Personal Info</a></li>
-            <li><a href="paymentinfo.html">Payment Info</a></li>
+            <li><a href="buyer_personalinfo.php">Personal Info</a></li>
+            <li><a href="paymentinfo.php">Payment Info</a></li>
             <li><a href="#">My Tickets</a></li>
         </ul>
     </nav>

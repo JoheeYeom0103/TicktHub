@@ -18,7 +18,7 @@
     <h1>TicketHub</h1>
     <ul>
         <!-- <li><a href="cart.html">View Cart</a></li> -->
-        <li><a href="seller_personalinfo.html">User</a></li>
+        <li><a href="seller_personalinfo.php">User</a></li>
     </ul>
 </header>
 
@@ -26,10 +26,10 @@
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="seller_personalinfo.html">Personal Info</a></li>
-            <li><a href="payoutinfo.html">Payout Info</a></li>
+            <li><a href="seller_personalinfo.php">Personal Info</a></li>
+            <li><a href="payoutinfo.php">Payout Info</a></li>
             <li><a href="#">Create Events</a></li>
-            <li><a href="salesManageEvents.html">Sales & Manage Events</a></li>
+            <li><a href="salesManageEvents.php">Sales & Manage Events</a></li>
         </ul>
     </nav>
 

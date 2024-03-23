@@ -10,11 +10,11 @@
 </head>
 <body>
     <header>
-        <h1><a href="browseTickets.html" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
+        <h1><a href="browseTickets.php" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
         <ul>
              <!-- login? personinfo.html : login.html -->
-            <li><a href="login.html">Login/Sign Up</a></li>
-            <li><a href="shoppingcart.html">View Cart</a></li>  <!-- UPDATE W/ CORRECT LINK  -->
+            <li><a href="login.php">Login/Sign Up</a></li>
+            <li><a href="shoppingcart.php">View Cart</a></li> 
            
         </ul>
     </header>
