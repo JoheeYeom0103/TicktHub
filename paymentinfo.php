@@ -1,3 +1,78 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+$UserID = 1; 
+
+include("dbConnection.php");
+
+$BankSql = "SELECT BankID, BankName, AccountHolderName, AccountNumber 
+            FROM BankTransfer 
+            JOIN Buyer ON BankTransfer.UserID = Buyer.BuyerID
+            WHERE BankTransfer.UserID = ?";
+$BankPstmt = mysqli_prepare($connection, $BankSql);
+
+if($BankPstmt) {
+    // Bind parameters to the prepared statement
+    mysqli_stmt_bind_param($BankPstmt, "s", $UserID);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($BankPstmt);
+
+    // Bind result variables
+    mysqli_stmt_bind_result($BankPstmt, $BankID, $BankName, $AccountHolderName, $AccountNumber); 
+
+    // Fetch bank transfer details
+    $bankTransfers = [];
+    while (mysqli_stmt_fetch($BankPstmt)) {
+        $bankTransfers[] = [
+            'BankID' => $BankID,
+            'BankName' => $BankName,
+            'AccountHolderName' => $AccountHolderName,
+            'AccountNumber' => $AccountNumber
+        ];
+    }
+
+    // Close statement
+    mysqli_stmt_close($BankPstmt);
+}
+
+$CreditSql = "SELECT CardID, CardNumber, ExpiryDate, CardHolderName, CVC 
+              FROM CreditCard 
+              JOIN Buyer ON CreditCard.UserID = Buyer.BuyerID
+              WHERE CreditCard.UserID = ?";
+$CreditPstmt = mysqli_prepare($connection, $CreditSql);
+
+if($CreditPstmt) {
+    // Bind parameters to the prepared statement
+    mysqli_stmt_bind_param($CreditPstmt, "s", $UserID);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($CreditPstmt);
+
+    // Bind result variables
+    mysqli_stmt_bind_result($CreditPstmt, $CardID, $CardNumber, $ExpiryDate, $CardHolderName, $CVC); 
+
+    // Fetch credit card details
+    $creditCards = [];
+    while (mysqli_stmt_fetch($CreditPstmt)) {
+        $creditCards[] = [
+            'CardID' => $CardID,
+            'CardNumber' => $CardNumber,
+            'ExpiryDate' => $ExpiryDate,
+            'CardHolderName' => $CardHolderName,
+            'CVC' => $CVC
+        ];
+    }
+
+    // Close statement
+    mysqli_stmt_close($CreditPstmt);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,57 +82,9 @@
     <!-- include css with <link rel="stylesheet" href="filepath.css"> -->
     <link rel="stylesheet" href="css/headerFooter.css">
     <link rel="stylesheet" href="css/leftnav.css">
-    <link rel="stylesheet" href="css/paymentinfo.css">
+    <link rel="stylesheet" href="css/paymentInfo.css">
     <!-- include css with <script src="filepath.js">  -->
-    <script src="script/paymentinfo.js"></script>
-
-    <?php
-
-    session_start();
-
-    // Accessing session variables
-    if(isset($_SESSION['userId'])) {
-        $userID = $_SESSION['userId'];
-    }
-
-    // Connection information
-    $host = "localhost";
-    $database = "tickethub";
-    $user = "joy";
-    $db_password = "joy5767";
-
-    // Create connection
-    $connection = mysqli_connect($host, $user, $db_password, $database);
-
-    // Error message
-    $error = mysqli_connect_error();
-
-    // If connection is not successful (If any error message exists)
-    if ($error != null) {
-        $error_message = "Connection failed: " . mysqli_connect_error();
-        exit("<p>$error_message</p>");
-    }
-
-    // Fetch user details from the database
-    $sql = "";
-    $pstmt = mysqli_prepare($connection, $sql);
-
-    if ($pstmt) {
-        // Bind parameters to the prepared statement
-        mysqli_stmt_bind_param($pstmt, "s", $userId);
-
-        // Execute the prepared statement
-        mysqli_stmt_execute($pstmt);
-
-        // Bind result variables
-        mysqli_stmt_bind_result($pstmt,);
-
-        // Fetch values
-        mysqli_stmt_fetch($pstmt);
-    }
-
-
-    ?>
+    <script src="script/paymentInfo.js"></script>
 </head>
 <body>
 
@@ -85,41 +112,79 @@
             <h2 class="payment-heading">Payment Information</h2>
             <div class="payment-method-container bank-transfer-method-container">
                 <h2>Bank Transfer</h2>
-                <div class="checkbox-container">
-                    <input type="checkbox" checked> <!-- Added checked attribute -->
-                    <label>Set As Default Method</label>
-                </div>
                 <div class="payment-info">
-                    <p>Bank Name: XYZ Bank</p>
-                    <p>Account Holder Name: John Doe</p>
-                    <p>Account Number: 123456789</p>
+                <?php foreach ($bankTransfers as $bankTransfer): ?>
+                    <form method="post" action="deleteMethod.php">
+                        <input type="hidden" name="bankId" value="<?php echo $bankTransfer['BankID']; ?>">
+                        <table class="payment-table">
+                            <tr>
+                                <th>Bank Name</th>
+                                <td><?php echo $bankTransfer['BankName']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Account Holder Name</th>
+                                <td><?php echo $bankTransfer['AccountHolderName']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Account Number</th>
+                                <td><?php echo $bankTransfer['AccountNumber']; ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <!-- Delete and Edit buttons with consistent styling -->
+                                    <input type="submit" name="delete" class="delete-button" value="Delete">
+                                    <!-- <input type="submit" name="edit" class="edit-button" value="Edit"> -->
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br/>
+                <?php endforeach; ?>
                 </div>
-                 <!-- Add a New Method Button -->
-                <button class="add-method">Add a New Method</button>
+                <!-- Add New Method button with the same styling -->
+                <button class="add-method-button">Add New Method</button>
             </div>
 
             <div class="payment-method-container credit-card-method-container">
                 <h2>Credit Card</h2>
-                <div class="checkbox-container">
-                    <input type="checkbox">
-                    <label>Set As Default Method</label>
-                </div>
                 <div class="payment-info">
-                    <p>Card Number: XXXX XXXX XXXX 1234</p>
-                    <p>Expiration Date: 12/25</p>
-                    <p>Card Holder Name: John Doe</p>
-                    <p>Security Code (CVC): 123</p>
+                <?php foreach ($creditCards as $creditCard): ?>
+                    <form method="post" action="deleteMethod.php">
+                        <input type="hidden" name="cardId" value="<?php echo $creditCard['CardID']; ?>">
+                        <table class="payment-table">
+                            <tr>
+                                <th>Card Number</th>
+                                <td><?php echo $creditCard['CardNumber']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Expiration Date</th>
+                                <td><?php echo $creditCard['ExpiryDate']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Card Holder Name</th>
+                                <td><?php echo $creditCard['CardHolderName']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Security Code (CVC)</th>
+                                <td><?php echo $creditCard['CVC']; ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <!-- Delete and Edit buttons with consistent styling -->
+                                    <input type="submit" name="delete" class="delete-button" value="Delete">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br/>
+                <?php endforeach; ?>
                 </div>
-                <!-- Add a New Method Button -->
-                <button class="add-method">Add a New Method</button>
+                <!-- Add New Method button with the same styling -->
+            <button class="add-method-button">Add New Method</button>
             </div>
 
             <div class="payment-method-container paypal-method-container">
                 <h2>PayPal</h2>
-                <div class="checkbox-container">
-                    <input type="checkbox">
-                    <label>Set As Default Method</label>
-                </div>
                 <div class="payment-info">
                     <img src="images/paypal.png" alt="PayPal Logo" id="paypal-logo">
                 </div>
@@ -134,3 +199,4 @@
 
 </body>
 </html>
+
