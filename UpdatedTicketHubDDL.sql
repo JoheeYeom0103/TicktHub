@@ -5,8 +5,9 @@ CREATE TABLE
         FirstName VARCHAR(16),
         MiddleName VARCHAR(16),
         LastName VARCHAR(16),
-        Birthdate DATE,
-        Password VARCHAR(16),
+        -- Birthdate DATE,
+        Phone VARCHAR(12),
+        Password VARCHAR(14),
         Email VARCHAR(100) UNIQUE
         -- PRIMARY KEY (Username, FirstName, MiddleName, LastName)
     );
@@ -125,7 +126,8 @@ INSERT INTO
         FirstName,
         MiddleName,
         LastName,
-        Birthdate,
+        -- Birthdate,
+        Phone,
         Password,
         Email
     )
@@ -135,7 +137,8 @@ VALUES
         'John',
         'Mark',
         'Doe',
-        '1990-05-15',
+        -- '1990-05-15',
+        '403-123-4567',
         'password1',
         'john.doe@example.com'
     ),
@@ -144,7 +147,8 @@ VALUES
         'Alice',
         'Marie',
         'Smith',
-        '1985-08-20',
+        -- '1985-08-20',
+        '404-234-5678',
         'password2',
         'alice.smith@example.com'
     );
@@ -379,9 +383,15 @@ SELECT
 FROM
     Payment;
 
-SELECT * FROM CreditCard;
+SELECT
+    *
+FROM
+    CreditCard;
 
-SELECT * FROM BankTransfer;
+SELECT
+    *
+FROM
+    BankTransfer;
 
 SELECT
     *
