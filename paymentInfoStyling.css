@@ -1,0 +1,169 @@
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+}
+
+/* Main content styles */
+#container {
+    display: flex;
+    flex-direction: row; 
+    flex: 1; 
+}
+
+/* Main content styles */
+#main-content {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#payment-details {
+    width: 85%;
+    max-width: 85%; 
+    margin: 2em auto; 
+    padding: 0 2em 2em 2em;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.payment-heading {
+    background-color: #007bff;
+    margin: 0 auto 1.5em auto;
+    padding: 0.2em;
+}
+
+.payment-method-container {
+    background-color: #444;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 1em;
+    margin-bottom: 2em;
+    border-radius: 5px;
+    width: 60%;
+}
+
+.payment-method-container h2 {
+    color: white;
+    margin-top: 0;
+}
+
+.payment-info p {
+    margin: 0.5em 0;
+}
+
+.payment-table {
+    background-color: #6c6c6c;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.payment-table td, .payment-table th {
+    border: 1px solid #8d8d8d;
+    padding: 8px;
+    text-align: left;
+}
+
+.add-method {
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 2em 0 0.5em 0;
+}
+
+.add-method:hover {
+    background-color: #0056b3;
+}
+
+#paypal-logo {
+    max-width: 15%;
+    margin-left: 1em;
+    height: auto;
+}
+
+/* Input box styles */
+input[type="text"] {
+    margin-bottom: 1em; 
+    width: 60%;
+    padding: 0.5em;
+    border: 1px solid #555;
+    border-radius: 3px;
+}
+
+/* Save and cancel button styles */
+.add-method-button {
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 1em 0;
+}
+
+.add-method-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    background-color: #ff0000;
+    margin-left: 0.5em;
+}
+
+.new-method-container > div {
+    margin-bottom: 1em;
+}
+
+.error-input {
+    border: 2px solid #007bff !important;
+}
+
+/* Button styles */
+.delete-button,
+.edit-button,
+.save-button,
+.cancel-button {
+    padding: 0.5em 1em;
+    margin-right: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.delete-button:hover,
+.edit-button:hover,
+.save-button:hover,
+.cancel-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    float: right;
+}
+
+input[type="text"] {
+    width: fit-content;
+    margin: 0;
+}
+
+.add-method-button {
+    margin-right: 1.5em;
+}
+
+
