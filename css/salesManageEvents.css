@@ -1,0 +1,86 @@
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Make the body a column layout */
+    height: 100vh;
+}
+
+/* Main container styles */
+#container {
+    display: flex;
+    flex-direction: row; /* Arrange items horizontally */
+    flex: 1; /* Allow main content to take remaining space */
+}
+
+/* Main content styles */
+#main-content {
+    flex: 1;
+    padding: 0;
+}
+
+.profile-heading {
+    background-color: #007bff;
+    margin: 0 auto 1.5em auto;
+    padding: 0.2em;
+}
+
+#profile-details {
+    max-width: 85%;
+    margin: 2em auto;
+    padding: 0 2em 2em 2em;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.profile-field {
+    margin-bottom: 2em;
+    margin-right: 4em;
+    width: max-content;
+}
+
+#buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.buttons {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.buttons:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}       
+th {
+    background-color: #222;
+}
+
+.invalid-input {
+    border: 2px solid #c90e02 !important;
+    background-color: #e8b0b0 !important;
+}
+
