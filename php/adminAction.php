@@ -2,13 +2,13 @@
 
     function displayUsers(){
         include("dbConnect.php");
-        $sql = "SELECT UserID, Username, FirstName, LastName, Email FROM user;";
+        $sql = "SELECT buyerID, Username, FirstName, LastName, Email FROM buyer JOIN user ON buyer.buyerID = user.userID;";
         $results = mysqli_query($connection, $sql);
 
         //and fetch requsults
         while ($row = mysqli_fetch_assoc($results))
         {
-        $userID = $row['UserID'];
+        $userID = $row['buyerID'];
         $username = $row['Username'];
         $firstName = $row['FirstName'];
         $lastName = $row['LastName'];
@@ -60,19 +60,34 @@
     function displayUserReqs(){
         include("dbConnect.php");
     
+        // logic to udpdate the DB and table when the admin presses reject or approve
         if(isset($_POST['action'])){
             $eventId = $_POST['eventId'];
             $action = $_POST['action'];
     
             // Update the status based on the action
-            $status = ($action === 'approve') ? 'Approved' : 'Rejected';
-            $sql = "UPDATE Event SET Status = '$status' WHERE EventID = $eventId";
-            mysqli_query($connection, $sql);
+            $status = ($action === 'Approve') ? 'Approved' : 'Rejected';
+            
+            // Use prepared statements to prevent SQL injection
+            $sql = "UPDATE Event SET Status = ? WHERE EventID = ?";
+            $stmt = mysqli_prepare($connection, $sql);
+            mysqli_stmt_bind_param($stmt, "si", $status, $eventId);
+            mysqli_stmt_execute($stmt);
+            
+            // Check for errors
+            if(mysqli_stmt_errno($stmt)){
+                echo "Failed to update status: " . mysqli_stmt_error($stmt);
+            } else {
+                echo "Status updated successfully.";
+            }
+    
+            mysqli_stmt_close($stmt);
         }
     
+        // getting the data for the requests from the sellers. 
         $sql = "SELECT s.SellerID, e.EventID, e.EventName, e.Status
                 FROM Seller s
-                JOIN Event e ON s.SellerID = e.AdminID";
+                JOIN Event e ON s.SellerID = e.SellerID";
     
         $results = mysqli_query($connection, $sql);
     
@@ -96,5 +111,6 @@
         mysqli_free_result($results);
         mysqli_close($connection);
     }
+    
     
     

@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <?php 
+        
+        // session logic
+        session_start(); 
+        if (isset($_SESSION["username"])){
+            $username = $_SESSION["username"];
+        }else{
+            $username = "jane_smith";
+        }
+
+        include("php/salesManageEventsAction.php");
+
+    ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Information</title>
@@ -19,7 +34,7 @@
 <header>
     <h1>TicketHub</h1>
     <ul>
-        <li><a href="seller_personalinfo.php">User</a></li>
+        <li><a href="seller_personalinfo.php">@<?php echo $username ?></a></li>
         <!-- <li><a href="shoppingcart.html">View Cart</a></li> -->
     </ul>
 </header>
@@ -45,18 +60,20 @@
                     <th>Month-Year</th>
                     <th>Average Sales</th>
                 </tr>
-                <tr>
-                    <td>January-2024</td>
-                    <td>$500</td>
-                </tr>
-                <tr>
-                    <td>February-2024</td>
-                    <td>$600</td>
-                </tr>
+                <?php
+                    displaySellerSales($username);
+                ?>
             </table>
 
             <div class="event-list">
                 <h3>Current Events</h3>
+                <?php
+                    // Check if the delete query parameter is present
+                    if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
+                        echo "<p>Event Deleted Successfully!</p>";
+                    }
+                ?>
+
                 <table>
                     <tr>
                         <th>Event Name</th>
@@ -65,25 +82,13 @@
                         <th>Quantity</th>
                         <th>Cost</th>
                         <th>Ticket Status</th>
-                        <th>Tickets Available</th>
-                        <th>Actions</th>
+                        <th colspan=2>Actions</th>
                     </tr>
                     <tr>
-                    <!--0--> <td><span class="event-name">Concert</span><input type="text" class="edit-event-name" style="display:none;"></td>
-                    <!--1--> <td><span class="event-location">Main Hall</span><input type="text" class="edit-event-location" style="display:none;"></td>
-                    <!--2--> <td><span class="event-date-time">2024-03-15 19:00</span><input type="datetime-local" class="edit-event-date-time" style="display:none;"></td>
-                    <!--3--> <td><span class="ticket-quantity">100</span><input type="number" class="edit-event-quantity" style="display:none;"></td>
-                    <!--4--> <td><span class="ticket-cost">$50</span><input type="number" class="edit-event-cost" style="display:none;"></td>
-                    <!--5--> <td><span class="ticket-status">On Sale</span><select class="edit-ticket-status" style="display:none;"><option value="On Sale">On Sale</option><option value="Sold Out">Sold Out</option></select></td>
-                    <!--6--> <td><span class="tickets-available">100</span><input type="number" class="edit-tickets-available" style="display:none;"></td>
-                        <td>
-                            <button class="edit-button" onclick="editData(this)">Edit</button>
-                            <button class="delete-button" onclick="deleteData(this)">Delete</button>
-                            <button class="save-button" style="display:none;">Save</button>
-                            <button class="cancel-button" style="display:none;">Cancel</button>
-                        </td>
+                        <?php
+                            displayEvents($username);
+                        ?>
                     </tr>
-                    <!-- Add more event rows here -->
                 </table>
             </div>
         </div>
