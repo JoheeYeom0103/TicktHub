@@ -161,7 +161,7 @@ VALUES
         'David',
         'Jones',
         -- '1985-08-20',
-        '404-234-5678',
+        '403-345-6789',
         'password3333',
         'mike.jones@example.com'
     ),
@@ -171,7 +171,7 @@ VALUES
         'Test',
         'User',
         -- '1985-08-20',
-        '404-234-5678',
+        '587-456-7890',
         'adminpassword',
         'jane.smith@example.com'
     );
