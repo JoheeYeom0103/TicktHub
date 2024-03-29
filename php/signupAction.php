@@ -5,7 +5,7 @@ require ("dbConnectZ.php");
 session_start();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $userID = $_POST['userID'];
+    $userID = $_POST['userID']; // this is the username 
     $firstName = $_POST['firstName'];
     $middleName = $_POST['middleName'];
     $lastName = $_POST['lastName'];

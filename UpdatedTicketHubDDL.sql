@@ -67,36 +67,39 @@ CREATE TABLE
 
 CREATE TABLE
     Payment (
-        PaymentID INT PRIMARY KEY,
+        PaymentID INT PRIMARY KEY AUTO_INCREMENT,
         PaymentMethod VARCHAR(50),
-        PayoutID INT,
-        BuyerID INT,
+        UserID INT,
+        -- PayoutID INT,
+        -- BuyerID INT,
         Amount DECIMAL(10, 2),
         Status BOOLEAN,
         TransactionID INT,
-        FOREIGN KEY (BuyerID) REFERENCES Buyer (BuyerID),
-        FOREIGN KEY (PayoutID) REFERENCES Seller (SellerID)
+        FOREIGN KEY (UserID) REFERENCES User (UserID),
+        -- FOREIGN KEY (PayoutID) REFERENCES Seller (SellerID)
     );
 
 CREATE TABLE
     CreditCard (
-        CardID INT PRIMARY KEY,
-        SetDefault BOOLEAN,
+        CardID INT AUTO_INCREMENT PRIMARY KEY,
+        UserID INT,
+        -- SetDefault BOOLEAN,
         CardNumber VARCHAR(16),
         ExpiryDate DATE,
-        CardHolderName VARCHAR(16),
+        CardHolderName VARCHAR(50),
         CVC INT,
-        FOREIGN KEY (CardID) REFERENCES Payment (PaymentID)
+        FOREIGN KEY (UserID) REFERENCES User (UserID)
     );
 
 CREATE TABLE
     BankTransfer (
-        BankID INT PRIMARY KEY,
-        SetDefault BOOLEAN,
-        BankName VARCHAR(16),
-        AccountHolderName VARCHAR(16),
+        BankID INT AUTO_INCREMENT PRIMARY KEY,
+        UserID INT,
+        -- SetDefault BOOLEAN,
+        BankName VARCHAR(50),
+        AccountHolderName VARCHAR(50),
         AccountNumber VARCHAR(16),
-        FOREIGN KEY (BankID) REFERENCES Payment (PaymentID)
+        FOREIGN KEY (UserID) REFERENCES User (UserID)
     );
 
 CREATE TABLE
@@ -133,24 +136,44 @@ INSERT INTO
     )
 VALUES
     (
-        'JohnMarkDoe',
+        'john_doe',
         'John',
         'Mark',
         'Doe',
         -- '1990-05-15',
         '403-123-4567',
-        'password1',
+        'password1111',
         'john.doe@example.com'
     ),
     (
-        'AliceMarieSmith',
-        'Alice',
+        'jane_smith',
+        'Jane',
         'Marie',
         'Smith',
         -- '1985-08-20',
         '404-234-5678',
-        'password2',
-        'alice.smith@example.com'
+        'password2222',
+        'jane.smith@example.com'
+    ),
+    (
+        'mike_jones',
+        'Mike',
+        'David',
+        'Jones',
+        -- '1985-08-20',
+        '404-234-5678',
+        'password3333',
+        'mike.jones@example.com'
+    ),
+    (
+        'admin_user',
+        'Admin',
+        'Test',
+        'User',
+        -- '1985-08-20',
+        '404-234-5678',
+        'adminpassword',
+        'jane.smith@example.com'
     );
 
 -- Inserting into Buyers table
@@ -158,19 +181,19 @@ INSERT INTO
     Buyer (BuyerID)
 VALUES
     (1),
-    (2);
+    (3);
 
 -- Inserting into Admins table
 INSERT INTO
     Admin (AdminID)
 VALUES
-    (1);
+    (4);
 
 -- Inserting into Sellers table
 INSERT INTO
     Seller (SellerID)
 VALUES
-    (1);
+    (2);
 
 -- Inserting into TicketInventory table
 INSERT INTO
@@ -182,8 +205,8 @@ INSERT INTO
         IsOverdue
     )
 VALUES
-    (1, 1, 50, 1, 0),
-    (2, 1, 30, 1, 0);
+    -- (1, 1, 50, 1, 0),
+    (1, 2, 50, TRUE, FALSE);
 
 -- Inserting into Event table
 INSERT INTO
@@ -198,21 +221,21 @@ INSERT INTO
 VALUES
     (
         1,
-        1,
+        4,
         'Approved',
-        'Music Fest',
-        'Park A',
-        '2024-05-20 18:00:00'
-    ),
-    (
-        2,
-        1,
-        'Approved',
-        'Soccer Cup',
-        'Stadium B',
-        '2024-06-10 15:00:00'
+        'Concert',
+        'Venue A',
+        '2024-04-10 18:00:00'
     );
 
+-- (
+--     2,
+--     1,
+--     'Approved',
+--     'Soccer Cup',
+--     'Stadium B',
+--     '2024-06-10 15:00:00'
+-- );
 -- Inserting into TicketInfo table
 INSERT INTO
     TicketInfo (
@@ -229,27 +252,27 @@ INSERT INTO
 VALUES
     (
         1,
+        2,
         1,
-        1,
-        'Concert',
-        'Music event',
-        50.00,
+        'Concert Ticket',
+        'VIP Seat',
+        100.00,
         101,
-        '2024-05-20 18:00:00',
-        '2024-05-20 22:00:00'
-    ),
-    (
-        2,
-        1,
-        2,
-        'Sports',
-        'Sports event',
-        25.00,
-        202,
-        '2024-06-10 15:00:00',
-        '2024-06-10 18:00:00'
+        '2024-04-1 10:00:00',
+        '2024-04-10 17:00:00'
     );
 
+-- (
+--     2,
+--     1,
+--     2,
+--     'Sports',
+--     'Sports event',
+--     25.00,
+--     202,
+--     '2024-06-10 15:00:00',
+--     '2024-06-10 18:00:00'
+-- );
 -- Inserting into Order table
 INSERT INTO
     Orders (
@@ -269,23 +292,28 @@ VALUES
 -- Inserting into Payment table
 INSERT INTO
     Payment (
-        PaymentID,
+        -- PaymentID,
         PaymentMethod,
-        PayoutID,
-        BuyerID,
+        UserID,
+        -- PayoutID,
+        -- BuyerID,
         Amount,
         Status,
         TransactionID
     )
 VALUES
-    (1, 'Credit Card', 1, 1, 100.00, 1, 123456),
-    (2, 'PayPal', 1, 2, 25.00, 1, 789012);
+    ('Credit Card', 1, 100.00, TRUE, 123456),
+    ('Credit Card', 2, 50.00, TRUE, 789012),
+    ('Bank Transfer', 3, 75.00, TRUE, 345678),
+    ('Bank Transfer', 1, 150.00, TRUE, 456789),
+    ('Credit Card', 3, 75.00, TRUE, 901234);
 
 -- Insert statement for CreditCard table
 INSERT INTO
     CreditCard (
-        CardID,
-        SetDefault,
+        -- CardID,
+        UserID,
+        -- SetDefault,
         CardNumber,
         ExpiryDate,
         CardHolderName,
@@ -294,45 +322,47 @@ INSERT INTO
 VALUES
     (
         1,
-        TRUE,
-        '1234567812345678',
-        '2025-12-31',
-        'John Doe',
+        '1234567890123456',
+        '2025-12-01',
+        'john_doe',
         123
     ),
     (
-        2,
-        FALSE,
-        '9876543298765432',
-        '2024-11-30',
-        'Jane Smith',
+        1,
+        '9876543210987654',
+        '2024-10-01',
+        'john_doe',
         456
+    ),
+    (
+        2,
+        '1111222233334444',
+        '2026-06-01',
+        'jane_smith',
+        789
+    ),
+    (
+        3,
+        '4444333322221111',
+        '2025-08-01',
+        'mike_jones',
+        246
     );
 
 -- Insert statement for BankTransfer table
 INSERT INTO
     BankTransfer (
-        BankID,
-        SetDefault,
+        -- BankID,
+        UserID,
+        -- SetDefault,
         BankName,
         AccountHolderName,
         AccountNumber
     )
 VALUES
-    (
-        1,
-        TRUE,
-        'Bank of America',
-        'Alice Johns',
-        '1234567890123456'
-    ),
-    (
-        2,
-        FALSE,
-        'Chase Bank',
-        'Bob Wills',
-        '9876543210987654'
-    );
+    (2, 'Bank X', 'jane_smith', '1234567890123456'),
+    (3, 'Bank Y', 'mike_jones', '9876543210987654'),
+    (1, 'Bank Z', 'john_doe', '9876123456789012');
 
 -- Inserting into Cart table
 INSERT INTO
