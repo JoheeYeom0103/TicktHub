@@ -1,17 +1,22 @@
 <?php
 
+// php error check
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Session start & User Id retrieval
 session_start();
-$UserID = 1; 
+$UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
 
+// Database connection
 include("dbConnection.php");
 
+/* Retreieve bank transfer data */
 $BankSql = "SELECT BankID, BankName, AccountHolderName, AccountNumber 
             FROM BankTransfer 
             JOIN Buyer ON BankTransfer.UserID = Buyer.BuyerID
             WHERE BankTransfer.UserID = ?";
+
 $BankPstmt = mysqli_prepare($connection, $BankSql);
 
 if($BankPstmt) {
@@ -22,12 +27,38 @@ if($BankPstmt) {
     mysqli_stmt_execute($BankPstmt);
 
     // Bind result variables
+    /* Although the variables are prepared to hold the data retrieved from the result set, 
+        at this point, they don't contain any data */
     mysqli_stmt_bind_result($BankPstmt, $BankID, $BankName, $AccountHolderName, $AccountNumber); 
 
     // Fetch bank transfer details
+    /* 
+        * Single row fetch
+            mysqli_stmt_bind_result($pstmt, $var1, $var2, $var3);
+            mysqli_stmt_fetch($pstmt); //returns a boolean value(true-succeed/false-failed)
+
+        * Multiple rows fetch
+            mysqli_stmt_bind_result($pstmt, $var1, $var2, $var3);
+            $resultArr = [];
+            while(mysqli_stmt_fetch($pstmt)) { //returns true as long as there is another row to fetch from the result set
+                $resultArr[] = [
+                    'Field1' => $var1, //=> associate keys with their corresponding values in an array
+                    'Field2' => $var2, 
+                    'Field3' => $var3
+                ];
+            }
+    */
+    // Create a new array to hold the multiple rows 
     $bankTransfers = [];
+    
     while (mysqli_stmt_fetch($BankPstmt)) {
+        // Create an array inside the array
         $bankTransfers[] = [
+            // Now the variables hold the values fetched from the database
+              /*
+                key => value: associate the value to the key 
+                These keys are chosen to match the selected fields in the SQL query, 
+                making it clear which value corresponds to which field. */
             'BankID' => $BankID,
             'BankName' => $BankName,
             'AccountHolderName' => $AccountHolderName,
@@ -35,10 +66,11 @@ if($BankPstmt) {
         ];
     }
 
-    // Close statement
+    // Close statement every time query ends
     mysqli_stmt_close($BankPstmt);
 }
 
+/* Retreieve credit card data */
 $CreditSql = "SELECT CardID, CardNumber, ExpiryDate, CardHolderName, CVC 
               FROM CreditCard 
               JOIN Buyer ON CreditCard.UserID = Buyer.BuyerID
@@ -67,7 +99,7 @@ if($CreditPstmt) {
         ];
     }
 
-    // Close statement
+    // Close statement 
     mysqli_stmt_close($CreditPstmt);
 }
 
@@ -82,7 +114,7 @@ if($CreditPstmt) {
     <!-- include css with <link rel="stylesheet" href="filepath.css"> -->
     <link rel="stylesheet" href="css/headerFooter.css">
     <link rel="stylesheet" href="css/leftnav.css">
-    <link rel="stylesheet" href="css/paymentInfo.css">
+    <link rel="stylesheet" href="css/paymentInfoStyling.css">
     <!-- include css with <script src="filepath.js">  -->
     <script src="script/paymentInfo.js"></script>
 </head>
@@ -113,8 +145,15 @@ if($CreditPstmt) {
             <div class="payment-method-container bank-transfer-method-container">
                 <h2>Bank Transfer</h2>
                 <div class="payment-info">
+                <!-- 
+                    < foreach($resultArr as $itemArr): >
+                        < echo $itemArr['Field1']; >
+                        < echo $itemArr['Field2']; >
+                        < echo $itemArr['Field3']; >
+                    < endforeach; >
+                -->
                 <?php foreach ($bankTransfers as $bankTransfer): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <form method="post" action="deleteMethod_payment.php">
                         <input type="hidden" name="bankId" value="<?php echo $bankTransfer['BankID']; ?>">
                         <table class="payment-table">
                             <tr>

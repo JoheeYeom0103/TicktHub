@@ -4,13 +4,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-$UserID = 1; 
+$UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 2; 
 
 include("dbConnection.php");
 
 $BankSql = "SELECT BankID, BankName, AccountHolderName, AccountNumber 
             FROM BankTransfer 
-            JOIN Buyer ON BankTransfer.UserID = Buyer.BuyerID
+            JOIN Seller ON BankTransfer.UserID = Seller.SellerID
             WHERE BankTransfer.UserID = ?";
 $BankPstmt = mysqli_prepare($connection, $BankSql);
 
@@ -41,7 +41,7 @@ if($BankPstmt) {
 
 $CreditSql = "SELECT CardID, CardNumber, ExpiryDate, CardHolderName, CVC 
               FROM CreditCard 
-              JOIN Buyer ON CreditCard.UserID = Buyer.BuyerID
+              JOIN Seller ON CreditCard.UserID = Seller.SellerID
               WHERE CreditCard.UserID = ?";
 $CreditPstmt = mysqli_prepare($connection, $CreditSql);
 
@@ -78,13 +78,13 @@ if($CreditPstmt) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buyer's Payment Page</title>
+    <title>Seller's Payout Page</title>
     <!-- include css with <link rel="stylesheet" href="filepath.css"> -->
     <link rel="stylesheet" href="css/headerFooter.css">
     <link rel="stylesheet" href="css/leftnav.css">
     <link rel="stylesheet" href="css/paymentInfo.css">
     <!-- include css with <script src="filepath.js">  -->
-    <script src="script/paymentInfo.js"></script>
+    <script src="script/payoutInfo.js"></script>
 </head>
 <body>
 
@@ -100,21 +100,22 @@ if($CreditPstmt) {
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="buyer_personalinfo.html">Personal Info</a></li>
-            <li><a href="#">Payment Info</a></li>
-            <li><a href="mytickts.html">My Tickets</a></li>
+            <li><a href="seller_personalinfo.html">Personal Info</a></li>
+            <li><a href="#">Payout Info</a></li>
+            <li><a href="createtickets.html">Create Events</a></li>
+            <li><a href="salesManageEvents.html">Sales & Manage Events</a></li>
         </ul>
     </nav>
 
     <!-- Main content -->
     <div id="main-content">
         <div id="payment-details">
-            <h2 class="payment-heading">Payment Information</h2>
+            <h2 class="payment-heading">Payout Information</h2>
             <div class="payment-method-container bank-transfer-method-container">
                 <h2>Bank Transfer</h2>
                 <div class="payment-info">
                 <?php foreach ($bankTransfers as $bankTransfer): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <form method="post" action="deleteMethod_payout.php">
                         <input type="hidden" name="bankId" value="<?php echo $bankTransfer['BankID']; ?>">
                         <table class="payment-table">
                             <tr>
