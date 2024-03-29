@@ -14,8 +14,8 @@
     <h1>TicketHub</h1>
     <ul>
         <!-- login? personinfo.html : login.html -->
-        <li><a href="login.html">Login/Sign Up</a></li>
-        <li><a href="shoppingcart.html">View Cart</a></li>
+        <li><a href="login.php">Login/Sign Up</a></li>
+        <li><a href="shoppingcart.php">View Cart</a></li>
     </ul>
 </header>
 
@@ -54,8 +54,8 @@
 
     <!-- Place order buttons -->
     <div id="place-order">
-        <button type="button" id="order-selected"><a href="payment.html" style="text-decoration: none; color: white;">Order Selected</a></button>
-        <button type="button"><a href="payment.html" style="text-decoration: none; color: white;">Order All</a></button>
+        <button type="button" id="order-selected"><a href="payment.php" style="text-decoration: none; color: white;">Order Selected</a></button>
+        <button type="button"><a href="payment.php" style="text-decoration: none; color: white;">Order All</a></button>
     </div>
 </div>
 

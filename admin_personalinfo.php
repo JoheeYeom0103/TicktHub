@@ -10,9 +10,17 @@
     <link rel="stylesheet" href="css/personalInfoStyling.css">
     <!-- Stylesheets -->
 
-     <!-- scripts -->
-     <script src="script/personalInfoValidation"></script>
-     <!-- scripts -->
+    <!-- scripts -->
+    <script src="script/personalInfoValidation"></script>
+    <!-- scripts -->
+
+    <?php 
+        if(isset($_SESSION['username'])){
+            $username = $_SESSION['username']; 
+        }else{
+            $username = 'null';
+        }
+    ?>
 
 </head>
 <body>
@@ -20,9 +28,8 @@
 <header>
     <h1>TicketHub</h1>
     <ul>
-        <!-- The user must have been logged in -->
-        <li><a href="buyer_personalinfo.html">User</a></li>
-        <li><a href="shoppingcart.html">View Cart</a></li>
+        <li><a href="admin_personalinfo.php">Admin @ <?php echo $username?></a></li>
+        <!-- <li><a href="shoppingcart.html">View Cart</a></li> -->
     </ul>
 </header>
 
@@ -30,9 +37,8 @@
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="#">Personal Info</a></li>
-            <li><a href="paymentinfo.html">Payment Info</a></li>
-            <li><a href="mytickts.html">My Tickets</a></li>
+            <li><a href="admin_personalinfo.php">Personal Info</a></li>
+            <li><a href="adminDashboard.php">Dashboard</a></li>
         </ul>
     </nav>
 
