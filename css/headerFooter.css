@@ -17,6 +17,10 @@ li {
     float: right;
 }
 
+#back {
+    float: left;
+}
+
 li a {
     display: block;
     color: white;
