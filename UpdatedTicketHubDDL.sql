@@ -75,7 +75,7 @@ CREATE TABLE
         Amount DECIMAL(10, 2),
         Status BOOLEAN,
         TransactionID INT,
-        FOREIGN KEY (UserID) REFERENCES User (UserID),
+        FOREIGN KEY (UserID) REFERENCES User (UserID)
         -- FOREIGN KEY (PayoutID) REFERENCES Seller (SellerID)
     );
 
