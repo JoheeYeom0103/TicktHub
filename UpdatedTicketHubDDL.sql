@@ -173,7 +173,7 @@ VALUES
         -- '1985-08-20',
         '587-456-7890',
         'adminpassword',
-        'jane.smith@example.com'
+        'admin@example.com'
     );
 
 -- Inserting into Buyers table
