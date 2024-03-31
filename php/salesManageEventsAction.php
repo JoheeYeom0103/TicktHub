@@ -1,7 +1,6 @@
 <?php
 
-function displaySellerSales($username){
-    include("dbConnect.php");
+function displaySellerSales($username, $connection){
     // Query the DB to access the average ticket price per month/year
     $sql = "SELECT 
                 MONTH(o.OrderDateTime) AS Month,
@@ -34,11 +33,9 @@ function displaySellerSales($username){
     }
 
     mysqli_free_result($results);
-    mysqli_close($connection);
 }
 
-function displayEvents($username){
-    include("dbConnect.php");
+function displayEvents($username, $connection){
 
     // Query to fetch the seller's current events
     $sql = "SELECT 
@@ -85,7 +82,6 @@ function displayEvents($username){
     }
 
     mysqli_free_result($results);
-    mysqli_close($connection);
 }
 
 

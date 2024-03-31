@@ -1,0 +1,9 @@
+vendor/
+logs/
+cache/
+.vscode/
+.env
+composer.lock
+composer.json
+phpunit.xml
+.phpunit.result.cache

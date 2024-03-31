@@ -13,6 +13,7 @@
         }
 
         include("php/salesManageEventsAction.php");
+        include("php/dbConnect.php");
 
     ?>
 
@@ -61,7 +62,7 @@
                     <th>Average Sales</th>
                 </tr>
                 <?php
-                    displaySellerSales($username);
+                    displaySellerSales($username, $connection);
                 ?>
             </table>
 
@@ -86,7 +87,7 @@
                     </tr>
                     <tr>
                         <?php
-                            displayEvents($username);
+                            displayEvents($username, $connection);
                         ?>
                     </tr>
                 </table>
@@ -98,6 +99,8 @@
 <footer>
     <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
 </footer>
+
+<?php mysqli_close($connection)?>
 
 </body>
 </html>

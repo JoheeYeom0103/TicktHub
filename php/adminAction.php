@@ -1,6 +1,6 @@
 <?php
 
-    function displayUsers(){
+    function displayUsers($connection){
         include("dbConnect.php");
         $sql = "SELECT buyerID, Username, FirstName, LastName, Email FROM buyer JOIN user ON buyer.buyerID = user.userID;";
         $results = mysqli_query($connection, $sql);
@@ -21,13 +21,10 @@
                     "<td>". $email ."</td>".
                 "</tr>";
         }
-
         mysqli_free_result($results);
-        mysqli_close($connection);
     }
 
-    function displayAverageSales(){
-        include("dbConnect.php");
+    function displayAverageSales($connection){
         // Query the DB to access the average ticket price per month/year
         $sql = "SELECT YEAR(o.OrderDateTime) AS Year, 
                        MONTH(o.OrderDateTime) AS Month,
@@ -53,13 +50,10 @@
         }
     
         mysqli_free_result($results);
-        mysqli_close($connection);
     }
     
     
-    function displayUserReqs(){
-        include("dbConnect.php");
-    
+    function displayUserReqs($connection){    
         // logic to udpdate the DB and table when the admin presses reject or approve
         if(isset($_POST['action'])){
             $eventId = $_POST['eventId'];
@@ -109,7 +103,6 @@
         echo "</table>";
     
         mysqli_free_result($results);
-        mysqli_close($connection);
     }
     
     

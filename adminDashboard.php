@@ -11,7 +11,6 @@
         }else{
             $username = "null";
         }
-    
     ?>
     <meta charset="UTF-8">
     <title>Administrator Dashboard</title>
@@ -26,6 +25,7 @@
     <!-- Scripts -->
 
     <?php include("php/adminAction.php"); ?>
+    <?php include("php/dbConnect.php"); ?>
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
@@ -53,7 +53,7 @@
                     <th>Email</th>
                 </tr>
                 <?php
-                    displayUsers(); // Call the function to display users
+                    displayUsers($connection); // Call the function to display users
                 ?>
             </table>
         </div>
@@ -65,7 +65,7 @@
                     <th>Average Sales</th>
                 </tr>
                <?php 
-                    displayAverageSales();
+                    displayAverageSales($connection);
                ?>
             </table>
         </div>
@@ -78,7 +78,7 @@
                     <th>Approve</th>
                 </tr>
                <?php 
-                    displayUserReqs();
+                    displayUserReqs($connection);
                ?>
             </table>
         </div>
@@ -86,5 +86,7 @@
     <footer>
         <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
     </footer>
+
+    <?php mysqli_close($connection); ?>
 </body>
 </html>
