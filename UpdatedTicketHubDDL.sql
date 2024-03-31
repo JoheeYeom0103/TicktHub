@@ -73,7 +73,7 @@ CREATE TABLE
 
 CREATE TABLE
     Orders (
-        OrderID INT PRIMARY KEY,
+        OrderID INT AUTO_INCREMENT PRIMARY KEY,
         UserID INT,
         PaymentID INT,
         TicketID INT,
