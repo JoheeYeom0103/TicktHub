@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("php/dbConnect.php");
+    include("dbConnect.php");
 
     if (isset($_POST["delete"])) {
         if(isset($_POST["bankId"])) {

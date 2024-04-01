@@ -4,22 +4,8 @@
         $search = $_POST["UserQuery"];
     }
 
-    $host = "localhost";
-    $database = "cosc310";
-    $user = "83066985";
-    $password = "83066985";
-
-    $connection = mysqli_connect($host, $user, $password, $database);
-
-    $error = mysqli_connect_error();
-    if($error != null)
-    {
-    $output = "<p>Unable to connect to database!</p>";
-    exit($output);
-    }
-    else
-    {
-        $sql = "SELECT * FROM event WHERE EventName LIKE '%".$search."%'";
+    include("dbConnect.php");
+    $sql = "SELECT * FROM event WHERE EventName LIKE '%".$search."%'";
 
         $results = mysqli_query($connection, $sql);
 
@@ -38,4 +24,4 @@
         mysqli_free_result($results);
         mysqli_close($connection);
     
-    }?>
+    

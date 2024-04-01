@@ -35,8 +35,8 @@
 <header>
     <h1>TicketHub</h1>
     <ul>
-        <li><a href="seller_personalinfo.php">@<?php echo $username ?></a></li>
-        <!-- <li><a href="shoppingcart.html">View Cart</a></li> -->
+        <!-- <li><a href="seller_personalinfo.php">@<?php echo $username ?></a></li> -->
+        <li><a href="browseTickets.php">Home</a></li>
     </ul>
 </header>
 

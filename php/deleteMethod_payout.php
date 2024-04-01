@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("php/dbConnect.php");
+    include("dbConnect.php");
 
     if (isset($_POST["delete"])) {
         if(isset($_POST["bankId"])) {
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_close($stmt);
 
             // Redirect back to the payment info page after deleting the record
-            header('Location: paymentInfo.php');
+            header('Location: payoutinfo.php');
             exit();
         } else {
             echo "Failed to prepare delete statement.";

@@ -1,7 +1,6 @@
 <?php
 
     function displayUsers($connection){
-        include("dbConnect.php");
         $sql = "SELECT buyerID, Username, FirstName, LastName, Email FROM buyer JOIN user ON buyer.buyerID = user.userID;";
         $results = mysqli_query($connection, $sql);
 

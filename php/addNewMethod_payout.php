@@ -1,11 +1,16 @@
 <?php
+echo "alert('working!')";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+ // Get UserID from session or wherever it's stored
+ session_start();
+ $userID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 2; 
 
 // Ensure that the request is a POST request
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Include your database connection file
-    include("dbConnection.php");
+    include("dbConnect.php");
 
     // Check if the required fields are set and not empty
     if (isset($_POST["paymentType"]) && !empty($_POST["paymentType"])) {
@@ -30,15 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         VALUES (?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($connection, $sql);
 
-                // Get UserID from session or wherever it's stored
-                $userID = 1; // For demonstration purposes, replace with your logic to get the UserID
-
                 // Bind parameters and execute the statement
                 mysqli_stmt_bind_param($stmt, "issss", $userID, $cardNumber, $expiryDate, $cardHolderName, $cvc);
                 
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<script>alert('New record inserted successfully!');</script>";
-                    header('Location: paymentInfo.php');
+                    header('Location: payoutinfo.php');
                 } else {
                     // Statement execution failed
                     echo "Error: " . mysqli_stmt_error($stmt);
@@ -58,15 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         VALUES (?, ?, ?, ?)";
                 $stmt = mysqli_prepare($connection, $sql);
 
-                // Get UserID from session or wherever it's stored
-                $userID = 1; // For demonstration purposes, replace with your logic to get the UserID
-
                 // Bind parameters and execute the statement
                 mysqli_stmt_bind_param($stmt, "isss", $userID, $bankName, $accountHolderName, $accountNumber);
                 
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<script>alert('New record inserted successfully!');</script>";
-                    header('Location: paymentInfo.php');
+                    header('Location: payoutinfo.php');
                 } else {
                     // Statement execution failed
                     echo "Error: " . mysqli_stmt_error($stmt);

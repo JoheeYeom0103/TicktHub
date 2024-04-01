@@ -42,7 +42,7 @@
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="buyer_personalinfo.php">Personal Info</a></li>
+            <li><a href="buyerPersonalInfo.php">Personal Info</a></li>
             <li><a href="paymentinfo.php">Payment Info</a></li>
             <li><a href="#">My Tickets</a></li>
         </ul>
