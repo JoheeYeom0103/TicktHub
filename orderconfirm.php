@@ -47,8 +47,8 @@
     <h1>TicketHub</h1>
     <ul>
        <!-- must have been logged in -->
-       <li><a href="personalinfo.html">User</a></li>
-       <li><a href="shoppingcart.html">View Cart</a></li>
+       <li><a href="personalinfo.php">User</a></li>
+       <li><a href="shoppingcart.php">View Cart</a></li>
     </ul>
 </header>
 

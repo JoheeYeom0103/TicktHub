@@ -1,7 +1,7 @@
 /* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e42c2c;
+    background-color: #1a1a1a;
     color: #fff;
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@ body {
     flex-direction: column; 
 }
 
-/* Main container styles */
+/* Main content styles */
 #container {
     display: flex;
     flex-direction: row; 
@@ -57,16 +57,20 @@ body {
     margin-top: 0;
 }
 
-.checkbox-container {
-    margin-bottom: 1em;
-}
-
-.checkbox-container input[type="checkbox"] {
-    margin-right: 0.5em;
-}
-
 .payment-info p {
     margin: 0.5em 0;
+}
+
+.payment-table {
+    background-color: #6c6c6c;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.payment-table td, .payment-table th {
+    border: 1px solid #8d8d8d;
+    padding: 8px;
+    text-align: left;
 }
 
 .add-method {
@@ -77,7 +81,7 @@ body {
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin: 1em 0 0.5em 0;
+    margin: 2em 0 0.5em 0;
 }
 
 .add-method:hover {
@@ -108,20 +112,54 @@ input[type="text"] {
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin: 1em 1em 0.5em 0;
+    margin: 1em 0;
 }
 
 .add-method-button:hover {
     background-color: #0056b3;
 }
 
-/* <div> which is a immediate children of .new-method-container */
+.cancel-button {
+    background-color: #ff0000;
+    margin-left: 0.5em;
+}
+
 .new-method-container > div {
     margin-bottom: 1em;
 }
 
-/* Add error styles for input fields */
 .error-input {
     border: 2px solid #007bff !important;
 }
+
+/* Button styles */
+.delete-button,
+.edit-button,
+.save-button,
+.cancel-button {
+    padding: 0.5em 1em;
+    margin-right: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.delete-button:hover,
+.edit-button:hover,
+.save-button:hover,
+.cancel-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    float: right;
+}
+
+input[type="text"] {
+    width: fit-content;
+    margin: 0;
+}
+
 
