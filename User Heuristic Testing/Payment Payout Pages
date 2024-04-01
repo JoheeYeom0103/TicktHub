@@ -1,0 +1,15 @@
+// Payment & Payout pages //
+
+Positive Finding
+
+Visibility/Feedback of System Status
+When users perform actions like adding or editing payment methods, they receive immediate feedback through alerts (e.g., "A new method has been saved!" or "Please correct the highlighted").
+
+User Control and Freedom
+Users are provided with a "Cancel" button to abort the process of adding a new payment method.
+
+Consistency and Standards
+Buttons ("Delete," "Edit," "Add New Method," "Submit," "Cancel") have consistent styling, which aids in recognition and predictability.
+
+Error Prevention
+Validation: Basic input validation is performed (e.g., checking for empty fields, validating card numbers, expiration dates, and security codes).
