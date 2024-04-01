@@ -1,0 +1,18 @@
+// Personal Info Page //
+
+- Positive Finding
+Visibility of system status
+The form notifies users of errors by highlighting the border of the invalid input fields. This visual feedback mechanism allows the users to identify and correct errors efficiently. Additionally, the system indicates its status with alert messages when changes are saved or when there are errors.
+
+Error prevention
+The form provides real-time validation for empty fields and incorrect formats for email and phone numbers without needing to submit the form
+
+Recognition rather than recall
+The form includes placeholders for input fields, offering guidance on the expected format. Additionally, they are pre-filled with existing user data, reducing the need for users to recall information.
+
+- Potential Improvements
+Error Prevention
+In case users lose their information by accidentally clicking “Cancel”, including a confirmation would be beneficial to prevent accidental data loss.
+
+Help users recognize, diagnose, and recover from errors
+The error message “Please correct the highlighted fields” is not specific enough to identify issues. Adding a brief message or tooltip near the password field would help users understand the expected password length without solely relying on error highlighting.
