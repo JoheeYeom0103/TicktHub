@@ -59,7 +59,10 @@
         <p>Your order has been successfully placed.</p>
     </div>
 </div>
-
+<?php include "dbConnect.php";
+    // TODO update insertOrder method with correct variable parameters.
+    // insertOrder($connection, );
+    mysqli_close($connection); ?>
 <footer>
     <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
 </footer>
