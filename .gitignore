@@ -1,8 +1,7 @@
-vendor/
 logs/
 cache/
 .vscode/
 .env
-composer.lock
+
 phpunit.xml
 .phpunit.result.cache
