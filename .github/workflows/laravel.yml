@@ -1,10 +1,10 @@
-name: Laravel
+name: PHPUnit Tests
 
 on:
   push:
-    branches: [ "m4Submission" ] # Changed branch name to m4Submission
+    branches: [ "m4Submission" ]
   pull_request:
-    branches: [ "m4Submission" ] # Changed branch name to m4Submission
+    branches: [ "m4Submission" ]
 
 jobs:
   laravel-tests:
@@ -26,8 +26,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+    - name: Execute PHPUnit Tests
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      run: php vendor/bin/phpunit
