@@ -84,7 +84,7 @@ if($CreditPstmt) {
     <link rel="stylesheet" href="css/leftnav.css">
     <link rel="stylesheet" href="css/paymentInfo.css">
     <!-- include css with <script src="filepath.js">  -->
-    <script src="script/payoutInfo.js"></script>
+    <script src="script/payoutinfo.js"></script>
 </head>
 <body>
 
