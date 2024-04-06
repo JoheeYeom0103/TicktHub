@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Restore Database Backup
         run: |
-          mysql -u root -proot tickethub < tickethubNew.sql
+          mysql -u root -proot tickethub < TicktHub/tickethubNew.sql
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
