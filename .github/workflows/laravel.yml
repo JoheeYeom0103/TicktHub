@@ -18,19 +18,20 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Restore Database Backup
         run: |
           mysql -u root -proot tickethub < TicktHub/tickethubNew.sql
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
-
-      # Other steps for setup, copying .env, installing dependencies, etc.
 
       - name: Execute PHPUnit Tests
         env:
