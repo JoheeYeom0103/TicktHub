@@ -2,11 +2,6 @@
 <phpunit bootstrap="vendor/autoload.php"
     colors="true"
     stopOnFailure="true">
-
-    <php>
-        
-    </php>
-
     <testsuites>
         <testsuite name="Tickethub">
             <directory>tests</directory>
