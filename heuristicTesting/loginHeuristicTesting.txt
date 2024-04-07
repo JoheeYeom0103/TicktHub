@@ -1,0 +1,26 @@
+User Heuristic Testing for Login Page:
+---------------------------------------------------
+
+1. Overview
+----------------------
+
+The heuristic testing of the login page aimed to evaluate its usability and user experience.
+
+2. Key Findings
+----------------------
+
+Visibility of System Status: 
+- When login was not successful, helpful error messages were displayed to help the user correct any errors and make a successful login attempt
+- Information boxes to show what should be input in the fields helped the user login successfully
+
+User Control:
+- Validation is in place on the client and backend side of the program to check against bad user input
+- Upon successful login, the user is able to see their home page with links to their profile. 
+
+Overall function:
+- Users can login according to their role (seller, buyer, admin)
+- Users land on the appropriate page after a subsequent successful login
+
+3. Potential Improvements:
+-----------------------
+- Adding more specific error messages could help the user better identify where they went wrong when logging in.

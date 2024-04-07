@@ -45,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if (mysqli_num_rows($resultBuyer) > 0) {
                     // The user is a buyer
-                    header("Location: ../buyerPersonalInfo.php");
+                    header("Location: ../browseTickets.php");
                     exit();
                 } else {
                     // The user is a seller
-                    header("Location: ../sellerPersonalInfo.php");
+                    header("Location: ../browseTickets.php");
                     exit();
                 }
             } else {

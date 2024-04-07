@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_close($stmt);
 
             // Redirect back to the payment info page after deleting the record
-            header('Location: payoutinfo.php');
+            header('Location: ../payoutinfo.php');
             exit();
         } else {
             echo "Failed to prepare delete statement.";

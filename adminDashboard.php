@@ -33,7 +33,7 @@
     <header>
         <h1><a href="browseTickets.php" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
         <ul>
-            <li><a href="admin_personalinfo.php">Admin @<?php echo $username ?></a></li> <!-- UPDATE W/ CORRECT LINK  -->
+            <li><a href="#">@<?php echo $username ?></a></li> <!-- UPDATE W/ CORRECT LINK  -->
             <li><a href="browseTickets.php">Home</a></li>
         </ul>
     </header>

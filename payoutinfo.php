@@ -1,5 +1,7 @@
 <?php
 
+// TODO fix add payment method button
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -114,7 +116,7 @@ if($CreditPstmt) {
                 <h2>Bank Transfer</h2>
                 <div class="payment-info">
                 <?php foreach ($bankTransfers as $bankTransfer): ?>
-                    <form method="post" action="deleteMethod_payout.php">
+                    <form method="post" action="php/deleteMethod_payout.php">
                         <input type="hidden" name="bankId" value="<?php echo $bankTransfer['BankID']; ?>">
                         <table class="payment-table">
                             <tr>
@@ -149,7 +151,7 @@ if($CreditPstmt) {
                 <h2>Credit Card</h2>
                 <div class="payment-info">
                 <?php foreach ($creditCards as $creditCard): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <form method="post" action="php/deleteMethod_payout.php">
                         <input type="hidden" name="cardId" value="<?php echo $creditCard['CardID']; ?>">
                         <table class="payment-table">
                             <tr>

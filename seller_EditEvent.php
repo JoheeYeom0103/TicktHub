@@ -53,7 +53,7 @@
     <header>
         <h1><a href="browseTickets.php" style="color: inherit; text-decoration: none;">TicketHub</a></h1>
         <ul>
-            <li><a href="seller_personalinfo.php">@<?php echo $username; ?></a></li>
+            <li><a href="sellerPersonalInfo.php">@<?php echo $username; ?></a></li>
         </ul>
     </header>
     

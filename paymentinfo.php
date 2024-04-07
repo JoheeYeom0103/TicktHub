@@ -1,5 +1,5 @@
 <?php
-
+// TODO fix add payment method button
 // php error check
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

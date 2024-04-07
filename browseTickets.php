@@ -7,8 +7,8 @@
         session_start(); 
         if (isset($_SESSION["username"])){
             $username = $_SESSION["username"];
-        }else{
-            $username = "null";
+        }else if(!isset($_SESSION["username"])){
+            header("Location: login.php");
         }
     ?>
 

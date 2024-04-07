@@ -9,7 +9,21 @@
 
     /******************************* SESSION *******************************/
     session_start();
-    $old_userId = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1;
+
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : "john_doe";
+    $buyerID = null;
+    
+    $sql = "SELECT * FROM User WHERE Username = ?";
+    $stmt = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    if (mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $buyerID = trim($row["UserID"]);
+    }
+    $old_userId = $buyerID;
     /******************************* SESSION *******************************/
 
     // Assign the old variables with data stored in the database
