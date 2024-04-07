@@ -18,14 +18,19 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: m4Submission  # Ensure it's checking out the correct branch
+
+      - name: List files in TicktHub
+        run: ls -la TicktHub/  # Debugging step
 
       - name: Restore Database Backup
-        run: |
-          mysql -u root -proot tickethub < TicktHub/tickethubNew.sql
+        run: mysql -u root -proot tickethub < TicktHub/tickethubNew.sql
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
