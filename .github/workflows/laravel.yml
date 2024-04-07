@@ -24,7 +24,8 @@ jobs:
 
       - name: Restore Database Backup
         run: |
-          mysql -u root -proot -h 127.0.0.1 -P 3306 tickethub < m4Submission/tickethubNew.sql
+          mysql -u root -proot -h 127.0.0.1 -P 3306 tickethub < tickethubNew.sql
+
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
