@@ -1,52 +1,49 @@
 <?php
-// shoppingcartAction.php
+require_once("dbConnectM.php");
 
-// Include database connection
-include("dbConnectM.php");
+function updateQuantity($ticketID, $quantity) {
+    global $conn;
 
-// Check if the POST request contains the necessary data
-if(isset($_POST['ticketID']) && isset($_POST['quantity'])) {
-    // Sanitize input data
-    $ticketID = $_POST['ticketID'];
-    $quantity = $_POST['quantity'];
-
-    // Update the quantity of the item in the database
     $sql = "UPDATE Cart SET Quantity = ? WHERE TicketID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $quantity, $ticketID);
     $stmt->execute();
 
-    // Check if the update was successful
-    if ($stmt->affected_rows > 0) {
-        echo "Quantity updated successfully.";
-    } else {
-        echo "Error updating quantity: " . $conn->error;
-    }
-
-    // Close prepared statement
-    $stmt->close();
+    return $stmt->affected_rows > 0;
 }
 
-// Check if the POST request contains the ticketID for item deletion
-if(isset($_POST['ticketID']) && isset($_POST['action']) && $_POST['action'] === 'delete') {
-    // Sanitize input data
-    $ticketID = $_POST['ticketID'];
+function deleteItem($ticketID) {
+    global $conn;
 
-    // Delete the item from the database
     $sql = "DELETE FROM Cart WHERE TicketID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $ticketID);
     $stmt->execute();
 
-    // Check if the deletion was successful
-    if ($stmt->affected_rows > 0) {
+    return $stmt->affected_rows > 0;
+}
+
+if(isset($_POST['ticketID']) && isset($_POST['quantity'])) {
+    $ticketID = $_POST['ticketID'];
+    $quantity = $_POST['quantity'];
+
+    $success = updateQuantity($ticketID, $quantity);
+    if ($success) {
+        echo "Quantity updated successfully.";
+    } else {
+        echo "Error updating quantity: " . $conn->error;
+    }
+}
+
+if(isset($_POST['ticketID']) && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    $ticketID = $_POST['ticketID'];
+
+    $success = deleteItem($ticketID);
+    if ($success) {
         echo "Item deleted successfully.";
     } else {
         echo "Error deleting item: " . $conn->error;
     }
-
-    // Close prepared statement
-    $stmt->close();
 }
 
 // Close database connection
