@@ -36,23 +36,26 @@ class AdminTest extends TestCase
         $user = getenv('DB_USERNAME'); 
         $pass = getenv('DB_PASSWORD'); 
         $dbname = getenv('DB_DATABASE');
-
+    
         // Create a mysqli connection
         $connection = new mysqli($host, $user, $pass, $dbname);
         if ($connection->connect_error) {
             die("Connection failed: " . $connection->connect_error);
         }
-
+    
         try {
             // Call the displayAverageSales function with the mysqli connection
             ob_start();
             displayAverageSales($connection);
             $output = ob_get_clean();
-
+    
             // Assertions on the output
             $this->assertNotEmpty($output);
-
-            // catch any exceptions thrown during method execution
+    
+            // Ensure closing the output buffer
+            ob_end_clean();
+    
+            // Catch any exceptions thrown during method execution
         } catch (Exception $e) {
             $this->fail("An exception was thrown: " . $e->getMessage());
         }
