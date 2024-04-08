@@ -42,10 +42,10 @@ class AdminTest extends TestCase
         try {
             // Start output buffering
             ob_start();
-            
+    
             // Call the displayAverageSales function with the mysqli connection
             displayAverageSales($this->connection);
-            
+    
             // Get the contents of the output buffer and end buffering
             $output = ob_get_clean();
     
