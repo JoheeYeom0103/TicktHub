@@ -86,6 +86,7 @@ INSERT INTO `buyer` (`BuyerID`) VALUES
 --
 
 CREATE TABLE `cart` (
+  `UserID` int(11) NOT NULL,
   `TicketID` int(11) NOT NULL,
   `TicketName` varchar(100) DEFAULT NULL,
   `Quantity` int(11) DEFAULT NULL,
@@ -96,9 +97,9 @@ CREATE TABLE `cart` (
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`TicketID`, `TicketName`, `Quantity`, `Price`) VALUES
-(1, 'Concert', 2, 50.00),
-(2, 'Sports', 1, 25.00);
+INSERT INTO `cart` (`UserID`, `TicketID`, `TicketName`, `Quantity`, `Price`) VALUES
+(1, 1, 'Concert', 2, 50.00),
+(1, 2, 'Sports', 1, 25.00);
 
 -- --------------------------------------------------------
 
@@ -321,6 +322,7 @@ ALTER TABLE `buyer`
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
+  ADD PRIMARY KEY (`UserID`),
   ADD PRIMARY KEY (`TicketID`);
 
 --
@@ -342,6 +344,7 @@ ALTER TABLE `event`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`OrderID`);
+  ADD PRIMARY KEY (`TicketID`);
 
 --
 -- Indexes for table `payment`
