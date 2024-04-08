@@ -37,20 +37,22 @@ class AdminTest extends TestCase
         $this->assertNotEmpty($output);
     }
 
-    public function testDisplayAverageSales()
+   public function testDisplayAverageSales()
     {
         try {
             // Call the displayAverageSales function with the mysqli connection
             ob_start();
             displayAverageSales($this->connection);
             $output = ob_get_clean();
-
+    
             // Assertions on the output
             $this->assertNotEmpty($output);
-
+    
         } catch (Exception $e) {
             $this->fail("An exception was thrown: " . $e->getMessage());
         }
+        // End output buffering to ensure it's properly cleaned up
+        ob_end_clean();
     }
 
     public function testDisplayUserReqs()
