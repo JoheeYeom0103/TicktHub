@@ -10,9 +10,9 @@ class AdminTest extends TestCase
     {
         // Get database connection parameters from environment variables
         $host = getenv('DB_HOST');
-        $user = getenv('DB_USER');
-        $pass = getenv('DB_PASSWD');
-        $dbname = getenv('DB_DBNAME');
+        $user = getenv('DB_USERNAME'); 
+        $pass = getenv('DB_PASSWORD'); 
+        $dbname = getenv('DB_DATABASE');
 
         // Create a mysqli connection
         $connection = new mysqli($host, $user, $pass, $dbname);
