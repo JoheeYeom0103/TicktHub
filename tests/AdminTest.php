@@ -36,29 +36,35 @@ class AdminTest extends TestCase
         $user = getenv('DB_USERNAME'); 
         $pass = getenv('DB_PASSWORD'); 
         $dbname = getenv('DB_DATABASE');
-    
+        
         // Create a mysqli connection
         $connection = new mysqli($host, $user, $pass, $dbname);
         if ($connection->connect_error) {
             die("Connection failed: " . $connection->connect_error);
         }
     
+        // Check if the TicketInfo table exists
+        $result = $connection->query("SHOW TABLES LIKE 'TicketInfo'");
+        if ($result->num_rows === 0) {
+            $this->markTestSkipped('The TicketInfo table does not exist.');
+        }
+    
         try {
             // Start output buffering
             ob_start();
-    
+        
             // Call the displayAverageSales function with the mysqli connection
             displayAverageSales($connection);
-    
+        
             // Capture the output
             $output = ob_get_contents();
-    
+        
             // Clean (erase) the output buffer and turn off output buffering
             ob_end_clean();
-    
+        
             // Assertions on the output
             $this->assertNotEmpty($output);
-    
+        
             // Catch any exceptions thrown during method execution
         } catch (Exception $e) {
             $this->fail("An exception was thrown: " . $e->getMessage());
