@@ -72,7 +72,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link rel="stylesheet" href="css/headerFooter.css">
-    <link rel="stylesheet" href="css/paymentStyling.css">
+    <link rel="stylesheet" href="css/payment.css">
     <script>
         // Script to make sure only one check box can be checked
         // Every time a new check box is chcekd, check if it is the previously checked box
@@ -94,22 +94,23 @@
     <header>
         <h1>TicketHub</h1>
         <ul>
-            <li><a href="buyer_personalinfo.html">User</a></li>
-            <li><a href="shoppingcart.html">View Cart</a></li>
+            <li><a href="buyer_personalinfo.php">User</a></li>
+            <li><a href="shoppingcart.php">View Cart</a></li>
         </ul>
     </header>
 
+    <form method="post" action="php/transaction.php">
     <div id="container">
         <!-- Bank Transfer Information -->
         <div class="payment-method-container">
             <h2>Bank Transfer</h2>
             <div class="payment-info">
                 <?php foreach ($bankTransfers as $bankTransfer): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <!-- <form method="post" action="deleteMethod.php"> -->
                         <table class="payment-table">
                         <tr>
                             <td colspan="2" class="checkbox-container"> 
-                                <input type="checkbox" name="saved-payment-method">
+                                <input type="radio" name="saved-payment-method" value="Bank Transfer">
                                 Pay with this method
                             </td>
                         </tr>
@@ -126,7 +127,7 @@
                                 <td><?php echo $bankTransfer['AccountNumber']; ?></td>
                             </tr>
                         </table>
-                    </form>
+                    <!-- </form> -->
                     <br/>
                 <?php endforeach; ?>
             </div>
@@ -137,11 +138,11 @@
             <h2>Credit Card</h2>
             <div class="payment-info">
                 <?php foreach ($creditCards as $creditCard): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <!-- <form method="post" action="deleteMethod.php"> -->
                         <table class="payment-table">
                             <tr>
                                 <td colspan="2" class="checkbox-container"> 
-                                    <input type="checkbox" name="saved-payment-method">
+                                    <input type="radio" name="saved-payment-method" value="Credit Card">
                                     Pay with this method
                                 </td>
                             </tr>
@@ -162,7 +163,7 @@
                                 <td><?php echo $creditCard['CVC']; ?></td>
                             </tr>
                         </table>
-                    </form>
+                    <!-- </form> -->
                     <br/>
                 <?php endforeach; ?>
             </div>
@@ -172,7 +173,7 @@
         <div class="payment-method-container">
             <h2>PayPal</h2>
             <div class="payment-info">
-                <p><input type="checkbox" id="paypal-checkbox" name="saved-payment-method">Pay with this method<p>
+                <p><input type="radio" id="paypal-checkbox" name="saved-payment-method">Pay with this method<p>
                 <img src="images/paypal.png" alt="PayPal Logo" id="paypal-logo">
             </div>
         </div>
@@ -186,8 +187,9 @@
     - If request is handled successfully, redirect to the orderConfirmation.html -->
     <h2 id="total">Total: $</h2>
     <div id="proceed-payment">
-        <button type="submit" name="submit">Proceed Payment</button>
+        <button type="submit" id="submit" name="submit">Proceed Payment</button>
     </div>
+    </form>
     <footer>
         <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
     </footer>
