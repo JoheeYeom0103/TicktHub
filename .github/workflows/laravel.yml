@@ -1,42 +1,59 @@
+# Name of the GitHub Actions workflow
 name: PHPUnit Tests
 
+# Defines when the workflow should be triggered
 on:
   push:
+    # Triggers the workflow on push events to the "m4Submission" branch
     branches: [ "m4Submission" ]
   pull_request:
+    # Triggers the workflow on pull requests targeting the "m4Submission" branch
     branches: [ "m4Submission" ]
 
+# Defines the jobs that the workflow will execute
 jobs:
   laravel-tests:
+    # Specifies the type of virtual environment the job will run on. Here, it uses the latest version of Ubuntu.
     runs-on: ubuntu-latest
+    
+    # Defines service containers that are part of the job
     services:
       mysql:
+        # Uses MySQL 5.7 Docker image
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: tickethub
+          MYSQL_ROOT_PASSWORD: root # Sets the MySQL root password
+          MYSQL_DATABASE: tickethub # Creates a MySQL database named tickethub
         ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 3306:3306 # Maps port 3306 inside the container to port 3306 on the runner host
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 # Health check options
+    
+    # Defines the sequence of tasks (steps) that will be executed as part of the job
     steps:
+      # Must check out the repository code to the GitHub Actions runner
+      - name: Checkout Repository
+        uses: actions/checkout@v2 
+
+      # Must restore database back up before running php unittest
       - name: Restore Database Backup
         run: |
-          mysql -u root -proot tickethub < TicktHub/tickethubNew.sql
-
+          # Restores a database backup from a file into the MySQL service container
+          # 127.0.0.1: Needs to specify the IP address of the MySQL server
+          # databaseName < backupSQL: Redirect the contents of the file tickethubNew.sql into the mysql command
+          mysql -u root -proot -h 127.0.0.1 -P 3306 tickethub < tickethubNew.sql 
+          
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v2 # Sets up PHP environment using the setup-php GitHub Action, only v2 works
         with:
-          php-version: '8.3'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: none
-
-      # Other steps for setup, copying .env, installing dependencies, etc.
+          php-version: '8.3' # Need to Specify only 1 PHP version to set up
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick # Lists the PHP extensions that need to be enabled
+          coverage: none # Disables code coverage
 
       - name: Execute PHPUnit Tests
         env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_DATABASE: tickethub
-          DB_USERNAME: root
-          DB_PASSWORD: root
-        run: php vendor/bin/phpunit --configuration phpunit.xml
+          DB_CONNECTION: mysql # Environment variable for DB connection type
+          DB_HOST: 127.0.0.1 # Database host
+          DB_DATABASE: tickethub # Database name
+          DB_USERNAME: root # Database username
+          DB_PASSWORD: root # Database password
+        run: php vendor/bin/phpunit --configuration phpunit.xml # Run PHPUnit tests using the phpunit.xml configuration file
