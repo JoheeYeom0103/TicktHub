@@ -1,0 +1,29 @@
+User Heuristic Testing for Signup Page:
+---------------------------------------------------
+
+1. Overview
+----------------------
+
+The heuristic testing of the signup page aimed to evaluate its usability and user experience.
+
+2. Key Findings
+----------------------
+
+Visibility of System Status: 
+- When signup was not successful, helpful error messages were displayed to help the user correct any errors and make a successful signup attempt
+- Information boxes to show what should be input in the fields helped the user signup successfully
+- The option to enter the system as a buyer or seller helped the user create the most ideal type of account for their situation
+- Validation of fields ensures that their information is stored properly in the database and no bad input is given
+
+User Control:
+- Validation is in place on the client and backend side of the program to check against bad user input
+- Upon successful signup, the user is able to see the most relevant home page with links to their profile. 
+
+Overall function:
+- Users can signup according to their role (seller, buyer)
+- Users land on the appropriate page after a subsequent successful signup
+
+3. Potential Improvements:
+-----------------------
+- Adding more specific error messages could help the user better identify where they went wrong when signing up.
+- Having a way for admins to be added to the system would be beneficial from a business owner perspective

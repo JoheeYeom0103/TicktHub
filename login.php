@@ -17,14 +17,14 @@
     <header>
       <h1>
         <a
-          href="browseTickets.html"
+          href="browseTickets.php"
           style="color: inherit; text-decoration: none"
           >TicketHub</a
         >
       </h1>
       <ul>
         <!-- <li><a href="cart.html">View Cart</a></li>  -->
-        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="signup.php">Sign Up</a></li>
       </ul>
     </header>
     <div class="loginContainer">
@@ -68,7 +68,7 @@
       <input
         type="button"
         value="Sign Up"
-        onclick="window.location.href='signup.html';"
+        onclick="window.location.href='signup.php';"
       />
     </div>
     <footer>

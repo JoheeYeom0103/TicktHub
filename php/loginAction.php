@@ -1,60 +1,58 @@
-<?php 
+<?php
 
-require ("dbConnectZ.php");
+require ("dbConnect.php");
 
 session_start();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userID = $_POST['username'];
     $password = $_POST['password'];
-    
 
     $errors = isEmptyLogin($userID, $password);
 
-    if(empty($errors)) {
+    if (empty($errors)) {
         $sql = "SELECT * FROM User WHERE Username = ?";
         $stmt = mysqli_prepare($connection, $sql);
         mysqli_stmt_bind_param($stmt, "s", $userID);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        
 
-        if(mysqli_num_rows($result) == 1) {
+        if (mysqli_num_rows($result) == 1) {
             $row = mysqli_fetch_assoc($result);
             $dbPass = trim($row["Password"]);
-            // if($hashedPassword === $dbPass)
-            if($password === $dbPass) {
+            if ($password === $dbPass) {
+                $_SESSION['username'] = $userID;
 
-                $_SESSION['userID'] = $userID;
-                
-                // to check if user is buyer or seller 
-                $sqlUserType = "SELECT User.UserID, Buyer.BuyerID, Seller.SellerID 
-                FROM User 
-                LEFT JOIN Buyer ON User.UserID = Buyer.BuyerID 
-                LEFT JOIN Seller ON User.UserID = Seller.SellerID 
-                WHERE User.UserID = ?";
+                // Check if the user is an admin
+                $sqlAdmin = "SELECT AdminID FROM Admin WHERE AdminID = ?";
+                $stmtAdmin = mysqli_prepare($connection, $sqlAdmin);
+                mysqli_stmt_bind_param($stmtAdmin, "i", $row['UserID']);
+                mysqli_stmt_execute($stmtAdmin);
+                $resultAdmin = mysqli_stmt_get_result($stmtAdmin);
 
-                $stmt2 = mysqli_prepare($connection, $sqlUserType);
-                mysqli_stmt_bind_param($stmt2, "i", $row['UserID']);
-                mysqli_stmt_execute($stmt2);
-                $result2 = mysqli_stmt_get_result($stmt2);
-                $userTypeRow = mysqli_fetch_assoc($result2);
-
-                if (!($userTypeRow['BuyerID'])) {
-                    // The user is a seller
-                    
-                    header("Location: ../seller_personalinfo.html");
+                if (mysqli_num_rows($resultAdmin) > 0) {
+                    // The user is an admin
+                    header("Location: ../adminDashboard.php");
                     exit();
                 }
-                if (!($userTypeRow['SellerID'])) {
+
+                // Check if the user is a buyer
+                $sqlBuyer = "SELECT BuyerID FROM Buyer WHERE BuyerID = ?";
+                $stmtBuyer = mysqli_prepare($connection, $sqlBuyer);
+                mysqli_stmt_bind_param($stmtBuyer, "i", $row['UserID']);
+                mysqli_stmt_execute($stmtBuyer);
+                $resultBuyer = mysqli_stmt_get_result($stmtBuyer);
+
+                if (mysqli_num_rows($resultBuyer) > 0) {
                     // The user is a buyer
-                    
-                    header("Location: ../buyer_personalinfo.html");
+                    header("Location: ../browseTickets.php");
+                    exit();
+                } else {
+                    // The user is a seller
+                    header("Location: ../browseTickets.php");
                     exit();
                 }
-                  
-            }
-            else {
+            } else {
                 $errors[] = "Password is incorrect";
             }
         } else {
@@ -62,25 +60,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         mysqli_stmt_close($stmt);
-    } 
+    }
 
     $_SESSION['loginErrors'] = $errors;
 
     header("Location: ../login.php");
     exit();
-
-} // end of if request POST  method 
+}
 
 mysqli_close($connection);
 
 function isEmptyLogin($username, $password) {
     $errors = array();
 
-    if(empty($username)) {
+    if (empty($username)) {
         $errors[] = "Username is required";
     }
 
-    if(empty($password)) {
+    if (empty($password)) {
         $errors[] = "Password is required";
     }
 

@@ -17,14 +17,14 @@
     <header>
       <h1>
         <a
-          href="browseTickets.html"
+          href="browseTickets.php"
           style="color: inherit; text-decoration: none"
           >TicketHub</a
         >
       </h1>
       <ul>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="shoppingcart.html">View Cart</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="shoppingcart.php">View Cart</a></li>
       </ul>
     </header>
     <div class="signupContainer">
@@ -153,7 +153,7 @@
       <input
         type="button"
         value="Login"
-        onclick="window.location.href='login.html';"
+        onclick="window.location.href='login.php';"
       />
     </div>
     <footer>
