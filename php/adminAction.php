@@ -28,7 +28,7 @@
         $sql = "SELECT YEAR(o.OrderDateTime) AS Year, 
                        MONTH(o.OrderDateTime) AS Month,
                        AVG(ti.Price * o.TicketQuantity) AS AverageTicketSales 
-                FROM Orders o
+                FROM orders o
                 JOIN TicketInfo ti ON o.TicketID = ti.TicketID
                 GROUP BY YEAR(o.OrderDateTime), MONTH(o.OrderDateTime);";
         $results = mysqli_query($connection, $sql);
