@@ -5,6 +5,7 @@ require_once "php/adminAction.php";
 
 class AdminTest extends TestCase
 {
+    // function to test the display users function in the adminAction.php file
     public function testDisplayUsers()
     {
         // Get database connection parameters from environment variables
@@ -20,7 +21,9 @@ class AdminTest extends TestCase
         }
 
         // Call the displayUsers function with the mysqli connection
-        $output = displayUsers($connection);
+        ob_start();
+        displayUsers($connection);
+        $output = ob_get_clean();
 
         // Assert not empty
         $this->assertNotEmpty($output);
@@ -42,11 +45,14 @@ class AdminTest extends TestCase
 
         try {
             // Call the displayAverageSales function with the mysqli connection
-            $output = displayAverageSales($connection);
+            ob_start();
+            displayAverageSales($connection);
+            $output = ob_get_clean();
 
             // Assertions on the output
             $this->assertNotEmpty($output);
 
+            // catch any exceptions thrown during method execution
         } catch (Exception $e) {
             $this->fail("An exception was thrown: " . $e->getMessage());
         }
@@ -74,7 +80,9 @@ class AdminTest extends TestCase
         // Simulate approving the test event
         $_POST['eventId'] = mysqli_insert_id($connection); // Get the ID of the last inserted event
         $_POST['action'] = 'Approve';
-        $output = displayUserReqs($connection);
+        ob_start();
+        displayUserReqs($connection);
+        $output = ob_get_clean();
 
         // Check if the status of the event is updated to 'Approved'
         $sql = "SELECT Status FROM Event WHERE EventName = '$eventName'";
@@ -84,7 +92,9 @@ class AdminTest extends TestCase
 
         // Simulate rejecting the test event
         $_POST['action'] = 'Reject';
-        $output = displayUserReqs($connection);
+        ob_start();
+        displayUserReqs($connection);
+        $output = ob_get_clean();
 
         // Check if the status of the event is updated to 'Rejected'
         $sql = "SELECT Status FROM Event WHERE EventName = '$eventName'";
@@ -100,5 +110,5 @@ class AdminTest extends TestCase
         // Assert that the table isn't empty
         $this->assertNotEmpty($output);
     }
-
 }
+?>
