@@ -40,9 +40,13 @@ class AdminTest extends TestCase
    public function testDisplayAverageSales()
     {
         try {
-            // Call the displayAverageSales function with the mysqli connection
+            // Start output buffering
             ob_start();
+            
+            // Call the displayAverageSales function with the mysqli connection
             displayAverageSales($this->connection);
+            
+            // Get the contents of the output buffer and end buffering
             $output = ob_get_clean();
     
             // Assertions on the output
@@ -51,8 +55,6 @@ class AdminTest extends TestCase
         } catch (Exception $e) {
             $this->fail("An exception was thrown: " . $e->getMessage());
         }
-        // End output buffering to ensure it's properly cleaned up
-        ob_end_clean();
     }
 
     public function testDisplayUserReqs()
