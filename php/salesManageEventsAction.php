@@ -1,16 +1,17 @@
 <?php
 
 function displaySellerSales($username, $connection){
-    SELECT 
-    DATE_FORMAT(o.OrderDateTime, '%m') AS Month, 
-    DATE_FORMAT(o.OrderDateTime, '%Y') AS Year, 
-    COUNT(o.OrderID) AS TotalSales, 
-    AVG(o.OrderCost) AS AverageSale 
-    FROM orders o 
-    JOIN seller s ON o.userID = s.SellerID
-    JOIN user u ON u.userID = s.SellerID
-    WHERE u.username = ?
-    GROUP BY Year, Month;
+    // Query to fetch seller sales
+    $sql = "SELECT 
+                MONTH(o.OrderDateTime) AS Month, 
+                YEAR(o.OrderDateTime) AS Year, 
+                COUNT(o.OrderID) AS TotalSales, 
+                AVG(o.OrderCost) AS AverageSale 
+            FROM orders o 
+            JOIN seller s ON o.userID = s.SellerID
+            JOIN user u ON u.userID = s.SellerID
+            WHERE u.username = ?
+            GROUP BY Year, Month";
 
     $stmt = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($stmt, 's', $username);
