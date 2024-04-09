@@ -46,14 +46,18 @@ class AdminTest extends TestCase
             // Call the displayAverageSales function with the mysqli connection
             displayAverageSales($this->connection);
     
-            // Get the contents of the output buffer and end buffering
+            // Get the contents of the output buffer
             $output = ob_get_clean();
     
             // Assertions on the output
             $this->assertNotEmpty($output);
     
         } catch (Exception $e) {
+            // If an exception is thrown, fail the test and display the exception message
             $this->fail("An exception was thrown: " . $e->getMessage());
+        } finally {
+            // Ensure the output buffer is closed even if an exception occurs
+            ob_end_clean();
         }
     }
 
