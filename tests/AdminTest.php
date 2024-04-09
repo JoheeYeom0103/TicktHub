@@ -101,5 +101,4 @@ class AdminTest extends TestCase
         // Assert that the table isn't empty
         $this->assertNotEmpty($output);
     }
-
 }
