@@ -31,10 +31,11 @@ class ManageEventsTest extends TestCase
         ob_start();
         displaySellerSales($this->seller, $connection); // username is an actual username
 
+         $output = ob_get_clean();
+
         // assert that the table isnt empty
         $this->assertNotEmpty($output); 
         
-        $output = ob_get_clean();
     }
 
     public function testDisplayEvents()
@@ -55,10 +56,10 @@ class ManageEventsTest extends TestCase
     ob_start();
     displayEvents($this->seller, $connection);
 
-     // assert that the table isnt empty
-    $this->assertNotEmpty($output);
-    
     $output = ob_get_clean();
+
+     // assert that the table isnt empty
+    $this->assertNotEmpty($output);  
 }
 
 }
