@@ -27,21 +27,21 @@ class ManageEventsTest extends TestCase
 
     public function testDisplaySellerSales()
     {
-        // Get database connection parameters from environment variables
-        $host = getenv('DB_HOST');
-        $user = getenv('DB_USERNAME'); 
-        $pass = getenv('DB_PASSWORD');
-        $dbname = getenv('DB_DATABASE'); 
+        // // Get database connection parameters from environment variables
+        // $host = getenv('DB_HOST');
+        // $user = getenv('DB_USERNAME'); 
+        // $pass = getenv('DB_PASSWORD');
+        // $dbname = getenv('DB_DATABASE'); 
 
-        // Create a mysqli connection
-        $connection = new mysqli($host, $user, $pass, $dbname);
-        if ($connection->connect_error) {
-            die("Connection failed: " . $connection->connect_error);
-        }
+        // // Create a mysqli connection
+        // $connection = new mysqli($host, $user, $pass, $dbname);
+        // if ($connection->connect_error) {
+        //     die("Connection failed: " . $connection->connect_error);
+        // }
 
         // Call the displaySellerSales function with the mysqli connection
         ob_start();
-        displaySellerSales($this->seller, $connection); // username is an actual username
+        displaySellerSales($this->seller, $this->$connection); // username is an actual username
 
          $output = ob_get_clean();
 
@@ -60,13 +60,13 @@ class ManageEventsTest extends TestCase
 
     // Create a mysqli connection
     $connection = new mysqli($host, $user, $pass, $dbname);
-    if ($connection->connect_error) {
-        die("Connection failed: " . $connection->connect_error);
+    if ($this->$connection->connect_error) {
+        die("Connection failed: " . $this->$connection->connect_error);
     }
 
     // Call the displayEvents function for the test seller
     ob_start();
-    displayEvents($this->seller, $connection);
+    displayEvents($this->seller, $this->$connection);
 
     $output = ob_get_clean();
 
