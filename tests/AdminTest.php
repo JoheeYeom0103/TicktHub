@@ -65,7 +65,7 @@ class AdminTest extends TestCase
     {
         // Create a test event
         $eventName = "Test Event";
-        $sql = "INSERT INTO Event (EventName, Status) VALUES ('$eventName', 'Pending')";
+        $sql = "INSERT INTO event (EventName, Status) VALUES ('$eventName', 'Pending')";
         mysqli_query($this->connection, $sql);
 
         // Simulate approving the test event
@@ -76,7 +76,7 @@ class AdminTest extends TestCase
         $output = ob_get_clean();
 
         // Check if the status of the event is updated to 'Approved'
-        $sql = "SELECT Status FROM Event WHERE EventName = '$eventName'";
+        $sql = "SELECT Status FROM event WHERE EventName = '$eventName'";
         $result = mysqli_query($this->connection, $sql);
         $row = mysqli_fetch_assoc($result);
         $this->assertEquals('Approved', $row['Status']);
@@ -88,14 +88,14 @@ class AdminTest extends TestCase
         $output = ob_get_clean();
 
         // Check if the status of the event is updated to 'Rejected'
-        $sql = "SELECT Status FROM Event WHERE EventName = '$eventName'";
+        $sql = "SELECT Status FROM event WHERE EventName = '$eventName'";
         $result = mysqli_query($this->connection, $sql);
         $row = mysqli_fetch_assoc($result);
         $this->assertEquals('Rejected', $row['Status']);
 
         // Clean up: delete the test event
         $eventId = $_POST['eventId'];
-        $sql = "DELETE FROM Event WHERE EventID = $eventId";
+        $sql = "DELETE FROM event WHERE EventID = $eventId";
         mysqli_query($this->connection, $sql);
 
         // Assert that the table isn't empty
