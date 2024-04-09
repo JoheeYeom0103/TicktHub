@@ -9,11 +9,6 @@ class AdminTest extends TestCase
 
     protected function setUp(): void {
 
-        // putenv('DB_HOST=localhost');
-        // putenv('DB_USERNAME=tatkg24');
-        // putenv('DB_PASSWORD=C0sc360!!');
-        // putenv('DB_DATABASE=tickethub');
-
         // Get database connection parameters from environment variables
         $host = getenv('DB_HOST');
         $user = getenv('DB_USERNAME'); 
@@ -28,8 +23,9 @@ class AdminTest extends TestCase
     }
 
     protected function tearDown(): void {
+        // No need to close the database connection here
         // Close database connection after each test
-        $this->connection->close();
+        // $this->connection->close();
     }
 
     public function testDisplayUsers()
@@ -43,7 +39,7 @@ class AdminTest extends TestCase
         $this->assertNotEmpty($output);
     }
 
-   public function testDisplayAverageSales()
+    public function testDisplayAverageSales()
     {
         try {
             // Start output buffering
@@ -64,6 +60,9 @@ class AdminTest extends TestCase
         } finally {
             // Ensure the output buffer is closed even if an exception occurs
             ob_end_clean();
+            
+            // Close database connection
+            $this->connection->close();
         }
     }
 
