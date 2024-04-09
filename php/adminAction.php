@@ -79,7 +79,7 @@
     
         // getting the data for the requests from the sellers. 
         $sql = "SELECT s.SellerID, e.EventID, e.EventName, e.Status
-                FROM Seller s
+                FROM seller s
                 JOIN event e ON s.SellerID = e.SellerID";
     
         $results = mysqli_query($connection, $sql);
