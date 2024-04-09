@@ -8,9 +8,9 @@
     $spm;
     $TypesOfTicket = [];
     $TicketQuantity = [];
-    transaction($connection, $UserID, $PaymentID, $spm, $TypesOfTicket, $TicketQuantity);
+    //transaction($connection);
 
-    function transaction($connection, $UserID, $PaymentID, $spm, $TypesOfTicket, $TicketQuantity) {
+    //function transaction($connection) {
         // Initialize UserID, PaymentID, and spm
         $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
         if (isset($_POST["PaymentID"])) {
@@ -63,7 +63,7 @@
 
             mysqli_query($connection, $sql);
         }
-    }
+    // }
     mysqli_free_result($results);
     mysqli_close($connection);
     
