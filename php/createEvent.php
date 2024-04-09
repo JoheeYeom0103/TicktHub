@@ -1,38 +1,50 @@
 <?php
-require_once("dbConnect.php");
 session_start();
 
-// Retrieve username from session or set a default value
-if (isset($_SESSION["username"])) {
-    $username = $_SESSION["username"];
+require_once("dbConnect.php"); // Include dbConnect.php file
 
-    // Fetch SellerID based on the username
-    $stmt = $connection->prepare("SELECT UserID FROM user JOIN seller ON user.UserID = seller.SellerID WHERE Username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+class EventCreator {
+    private $connection; // Rename $conn to $connection
+    private $sellerID;
+    private $adminID;
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $sellerID = $row["UserID"];
-    } else {
-        // Handle the case when the username is not found
-        echo "Username not found.";
-        exit();
+    public function __construct($connection) { // Rename $conn to $connection
+        $this->connection = $connection; // Rename $conn to $connection
+        // Retrieve SellerID from session or set a default value
+        $this->sellerID = isset($_SESSION["SellerID"]) ? $_SESSION["SellerID"] : 1; // Default value: 1
+        // Retrieve AdminID from session or set a default value
+        $this->adminID = isset($_SESSION["AdminID"]) ? $_SESSION["AdminID"] : 4; // Default value: 4
     }
 
-    $stmt->close();
-} else {
-    // Set a default SellerID if the username is not set
-    $sellerID = 1; // You may adjust this value as needed
+    public function createEvent($eventName, $location, $dateTime, $quantity, $cost, $description) {
+        $stmt = $this->connection->prepare("INSERT INTO Event (AdminID, Status, EventName, Location, DateTime) VALUES (?, ?, ?, ?, ?)");
+        $status = 'Pending'; 
+        $stmt->bind_param("issss", $this->adminID, $status, $eventName, $location, $dateTime);
+
+        if ($stmt->execute()) {
+            $eventID = $stmt->insert_id;
+
+            if ($this->createTicketInfo($eventID, $eventName, $description, $cost)) {
+                header("Location: ../salesManageEvents.php");
+                exit(); // Stop further execution
+            } else {
+                return "Error creating ticket info.";
+            }
+        } else {
+            return "Error creating event.";
+        }
+    }
+
+    public function createTicketInfo($eventID, $ticketName, $ticketDescription, $price) {
+        $stmt = $this->connection->prepare("INSERT INTO ticketinfo (SellerID, EventID, TicketName, TicketDescription, Price) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("iissd", $this->sellerID, $eventID, $ticketName, $ticketDescription, $price);
+
+        return $stmt->execute();
+    }
 }
 
-if (isset($_SESSION["AdminID"])) {
-    $adminID = $_SESSION["AdminID"];
-} else {
-    // Set a default AdminID
-    $adminID = 4; // You may adjust this value as needed
-}
+// Usage
+$eventCreator = new EventCreator($connection); // Pass $connection variable to EventCreator constructor
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eventName = $_POST["eventName"];
@@ -42,32 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cost = $_POST["cost"];
     $description = $_POST["description"];
 
-    // Prepare and execute the SQL statements
-    $stmt = $connection->prepare("INSERT INTO Event (AdminID, Status, EventName, Location, SellerID) VALUES (?, ?, ?, ?, ?)");
-    $status = 'Pending'; // Set the status to "Pending"
-    $stmt->bind_param("isssi", $adminID, $status, $eventName, $location, $sellerID);
-
-    if ($stmt->execute()) {
-        $eventID = $connection->insert_id; // Use connection object to get insert_id
-
-        $stmt2 = $connection->prepare("INSERT INTO TicketInfo (SellerID, EventID, TicketName, TicketDescription, Price) VALUES (?, ?, ?, ?, ?)");
-        $stmt2->bind_param("iissd", $sellerID, $eventID, $eventName, $description, $cost);
-
-        if ($stmt2->execute()) {
-            // echo "Event created successfully!";
-            header("Location: ../salesManageEvents.php");
-        } else {
-            echo "Error creating ticket info: " . $stmt2->error;
-        }
-
-        $stmt2->close();
-    } else {
-        echo "Error creating event: " . $stmt->error;
-    }
-    $stmt->close();
+    echo $eventCreator->createEvent($eventName, $location, $dateTime, $quantity, $cost, $description);
 } else {
     echo "Invalid request method.";
 }
 
-$connection->close();
-?>
+$connection->close(); // Close the database connection
