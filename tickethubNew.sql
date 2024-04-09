@@ -146,11 +146,11 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`EventID`, `AdminID`, `Status`, `EventName`, `Location`, `DateTime`, `SellerID`) VALUES
-(0, 4, 'Pending', 'Jane\'s Event', 'My House', '2024-04-04 15:32:00', NULL),
-(1, 4, 'Approved', 'Concert', 'Venue A', '2024-04-10 18:00:00', 2),
-(2, 4, 'Approved', 'Music Festival', 'Venue B', '2024-05-20 16:00:00', 2),
-(3, 4, 'Approved', 'Comedy Show', 'Venue C', '2024-06-15 19:30:00', 2);
+INSERT INTO `event` (`AdminID`, `Status`, `EventName`, `Location`, `DateTime`, `SellerID`) VALUES
+(4, 'Pending', 'Jane\'s Event', 'My House', '2024-04-04 15:32:00', NULL),
+(4, 'Approved', 'Concert', 'Venue A', '2024-04-10 18:00:00', 2),
+(4, 'Approved', 'Music Festival', 'Venue B', '2024-05-20 16:00:00', 2),
+(4, 'Approved', 'Comedy Show', 'Venue C', '2024-06-15 19:30:00', 2);
 
 -- --------------------------------------------------------
 

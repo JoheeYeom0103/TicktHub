@@ -4,7 +4,8 @@
     ini_set('display_errors', 1);
 
     session_start();
-    $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
+    $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1;
+    $TotalCost = isset($_GET['TotalCost']) ? $_GET['TotalCost'] : 1;
 
     include("php/dbConnect.php");
 
@@ -88,6 +89,28 @@
                 }
             });
         });
+
+        function validateForm() {
+            
+            var radioButtons = document.querySelectorAll('input[name="saved-payment-method"]');
+            var isChecked = false;
+
+            // Loop through radio buttons to check if any are checked
+            for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].checked) {
+                    isChecked = true;
+                    break;
+                }
+            }
+
+            // If no radio button is checked, alert the user and prevent form submission
+            if (!isChecked) {
+                alert("Please select a payment method.");
+                return false; // Prevent form submission
+            }
+
+            return true;
+        }
     </script>
 </head>
 <body>
@@ -99,7 +122,7 @@
         </ul>
     </header>
 
-    <form method="post" action="php/transaction.php">
+    <form method="post" action="php/transaction.php" onsubmit="return validateForm()">
     <div id="container">
         <!-- Bank Transfer Information -->
         <div class="payment-method-container">
@@ -185,7 +208,7 @@
     - Add form with method, action 
     - Write php script to handle the request(transction) 
     - If request is handled successfully, redirect to the orderConfirmation.html -->
-    <h2 id="total">Total: $</h2>
+    <h2 id="total">Total: $<?php echo $TotalCost?></h2>
     <div id="proceed-payment">
         <button type="submit" id="submit" name="submit">Proceed Payment</button>
     </div>

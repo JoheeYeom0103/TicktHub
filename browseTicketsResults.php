@@ -15,7 +15,7 @@
         addToCartButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             var eventName = button.getAttribute('EventName');
-            $.post("addToCart.php", { EventName: eventName}, function(response) {
+            $.post("addToCart.php", { EventID: eventID}, function(response) {
                 alert("Added to Cart!");
             });
         });
