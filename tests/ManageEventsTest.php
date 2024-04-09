@@ -30,10 +30,11 @@ class ManageEventsTest extends TestCase
         // Call the displaySellerSales function with the mysqli connection
         ob_start();
         displaySellerSales($this->seller, $connection); // username is an actual username
-        $output = ob_get_clean();
 
         // assert that the table isnt empty
         $this->assertNotEmpty($output); 
+        
+        $output = ob_get_clean();
     }
 
     public function testDisplayEvents()
@@ -53,10 +54,11 @@ class ManageEventsTest extends TestCase
     // Call the displayEvents function for the test seller
     ob_start();
     displayEvents($this->seller, $connection);
-    $output = ob_get_clean();
 
-    // assert that the table isnt empty
+     // assert that the table isnt empty
     $this->assertNotEmpty($output);
+    
+    $output = ob_get_clean();
 }
 
 }
