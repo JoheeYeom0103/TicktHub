@@ -2,14 +2,16 @@
 
 function displaySellerSales($username, $connection){
     // Query the DB to access the average ticket price per month/year
-    $sql = "SELECT MONTH(o.OrderDateTime) AS Month, 
+    SELECT 
+    MONTH(o.OrderDateTime) AS Month, 
     YEAR(o.OrderDateTime) AS Year, 
     COUNT(o.OrderID) AS TotalSales, 
     AVG(o.OrderCost) AS AverageSale 
     FROM orders o 
     JOIN seller s ON o.userID = s.SellerID
     JOIN user u ON u.userID = s.SellerID
-    WHERE u.username = ?;";
+    WHERE u.username = ?
+    GROUP BY YEAR(o.OrderDateTime), MONTH(o.OrderDateTime);
 
     $stmt = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($stmt, 's', $username);
