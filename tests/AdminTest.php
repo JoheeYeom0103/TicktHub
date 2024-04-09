@@ -8,6 +8,12 @@ class AdminTest extends TestCase
     protected $connection;
 
     protected function setUp(): void {
+
+        // putenv('DB_HOST=localhost');
+        // putenv('DB_USERNAME=tatkg24');
+        // putenv('DB_PASSWORD=C0sc360!!');
+        // putenv('DB_DATABASE=tickethub');
+
         // Get database connection parameters from environment variables
         $host = getenv('DB_HOST');
         $user = getenv('DB_USERNAME'); 

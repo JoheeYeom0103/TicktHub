@@ -62,7 +62,7 @@
             $status = ($action === 'Approve') ? 'Approved' : 'Rejected';
             
             // Use prepared statements to prevent SQL injection
-            $sql = "UPDATE Event SET Status = ? WHERE EventID = ?";
+            $sql = "UPDATE event SET Status = ? WHERE EventID = ?";
             $stmt = mysqli_prepare($connection, $sql);
             mysqli_stmt_bind_param($stmt, "si", $status, $eventId);
             mysqli_stmt_execute($stmt);
@@ -80,7 +80,7 @@
         // getting the data for the requests from the sellers. 
         $sql = "SELECT s.SellerID, e.EventID, e.EventName, e.Status
                 FROM Seller s
-                JOIN Event e ON s.SellerID = e.SellerID";
+                JOIN event e ON s.SellerID = e.SellerID";
     
         $results = mysqli_query($connection, $sql);
     
