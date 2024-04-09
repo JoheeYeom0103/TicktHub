@@ -26,7 +26,7 @@
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="sellerPersonaIinfo.php">Personal Info</a></li>
+            <li><a href="sellerPersonalInfo.php">Personal Info</a></li>
             <li><a href="payoutinfo.php">Payout Info</a></li>
             <li><a href="#">Create Events</a></li>
             <li><a href="salesManageEvents.php">Sales & Manage Events</a></li>

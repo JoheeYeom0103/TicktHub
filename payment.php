@@ -72,7 +72,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link rel="stylesheet" href="css/headerFooter.css">
-    <link rel="stylesheet" href="css/paymentStyling.css">
+    <link rel="stylesheet" href="css/payment.css">
     <script>
         // Script to make sure only one check box can be checked
         // Every time a new check box is chcekd, check if it is the previously checked box
@@ -94,8 +94,8 @@
     <header>
         <h1>TicketHub</h1>
         <ul>
-            <li><a href="buyer_personalinfo.html">User</a></li>
-            <li><a href="shoppingcart.html">View Cart</a></li>
+            <li><a href="browseTickets.php">Home</a></li>
+            <li><a href="shoppingcart.php">View Cart</a></li>
         </ul>
     </header>
 

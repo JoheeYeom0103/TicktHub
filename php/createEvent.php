@@ -10,21 +10,25 @@ class EventCreator {
 
     public function __construct($connection) { // Rename $conn to $connection
         $this->connection = $connection; // Rename $conn to $connection
-        // Retrieve SellerID from session or set a default value
-        $this->sellerID = isset($_SESSION["SellerID"]) ? $_SESSION["SellerID"] : 1; // Default value: 1
+    
         // Retrieve AdminID from session or set a default value
         $this->adminID = isset($_SESSION["AdminID"]) ? $_SESSION["AdminID"] : 4; // Default value: 4
     }
 
     public function createEvent($eventName, $location, $dateTime, $quantity, $cost, $description) {
-        $stmt = $this->connection->prepare("INSERT INTO Event (AdminID, Status, EventName, Location, DateTime) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $this->connection->prepare("INSERT INTO Event (AdminID, Status, EventName, Location, DateTime, SellerID) VALUES (?, ?, ?, ?, ?, ?)");
         $status = 'Pending'; 
-        $stmt->bind_param("issss", $this->adminID, $status, $eventName, $location, $dateTime);
+        $overdue = 'false';
+        $sellerId = 2;
+        $stmt->bind_param("issssi", $this->adminID, $status, $eventName, $location, $dateTime, $sellerId);
 
         if ($stmt->execute()) {
             $eventID = $stmt->insert_id;
+            $ticketID = $stmt->insert_id;
+            echo "New record has id: " . $stmt -> insert_id;
 
-            if ($this->createTicketInfo($eventID, $eventName, $description, $cost)) {
+
+            if ($this->createTicketInfo($eventID, $eventName, $description, $cost) && $this->createTicketInv($ticketID, $quantity, $status, $overdue)) {
                 header("Location: ../salesManageEvents.php");
                 exit(); // Stop further execution
             } else {
@@ -37,10 +41,18 @@ class EventCreator {
 
     public function createTicketInfo($eventID, $ticketName, $ticketDescription, $price) {
         $stmt = $this->connection->prepare("INSERT INTO ticketinfo (SellerID, EventID, TicketName, TicketDescription, Price) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("iissd", $this->sellerID, $eventID, $ticketName, $ticketDescription, $price);
-
+        $seller_ID = 2;
+        $stmt->bind_param("iissd", $seller_ID, $eventID, $ticketName, $ticketDescription, $price);
         return $stmt->execute();
     }
+
+    public function createTicketInv($ticketID, $quantity, $ticketStatus, $isOverdue){
+        $stmt = $this->connection->prepare("INSERT INTO ticketinventory (SellerID, TicketID, TicketQty, TicketStatus, IsOverdue) VALUES (?, ?, ?, ?, ?)");
+        $sellerID = 2; // Assuming the seller ID is fixed for this operation
+        $stmt->bind_param("iiiss", $sellerID, $ticketID, $quantity, $ticketStatus, $isOverdue);
+        return $stmt->execute();
+    }
+    
 }
 
 // Usage

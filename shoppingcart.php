@@ -68,8 +68,8 @@
 
     <!-- Place order buttons -->
     <div id="place-order">
-        <button type="button" id="order-selected"><a href="payment.html" style="text-decoration: none; color: white;">Order Selected</a></button>
-        <button type="button"><a href="payment.html" style="text-decoration: none; color: white;">Order All</a></button>
+        <button type="button" id="order-selected"><a href="payment.php" style="text-decoration: none; color: white;">Order Selected</a></button>
+        <button type="button"><a href="payment.php" style="text-decoration: none; color: white;">Order All</a></button>
     </div>
 </div>
 

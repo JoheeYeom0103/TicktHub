@@ -7,10 +7,10 @@ function displaySellerSales($username, $connection){
                 YEAR(o.OrderDateTime) AS Year,
                 COUNT(o.OrderID) AS TotalSales,
                 AVG(o.OrderCost) AS AverageSale
-            FROM Orders o
-            JOIN TicketInfo ti ON o.TicketID = ti.TicketID
-            JOIN Seller s ON ti.SellerID = s.SellerID
-            JOIN User u ON u.Username = ?
+            FROM orders o
+            JOIN ticketinfo ti ON o.TicketID = ti.TicketID
+            JOIN seller s ON ti.SellerID = s.SellerID
+            JOIN user u ON u.Username = ?
             WHERE u.Username = ?
             GROUP BY YEAR(o.OrderDateTime), MONTH(o.OrderDateTime)
             ORDER BY YEAR(o.OrderDateTime), MONTH(o.OrderDateTime);";
@@ -47,8 +47,8 @@ function displayEvents($username, $connection){
                 ti.Price,
                 inv.TicketStatus
             FROM event e
-            JOIN ticketinfo ti ON e.EventId = ti.EventId
-            JOIN ticketinventory inv ON ti.TicketId = inv.TicketId
+            JOIN ticketinfo ti ON e.EventID = ti.EventID
+            JOIN ticketinventory inv ON ti.TicketID = inv.TicketID
             JOIN user u ON e.SellerID = u.UserID
             WHERE u.username = ?";
 
@@ -56,6 +56,7 @@ function displayEvents($username, $connection){
     mysqli_stmt_bind_param($stmt, 's', $username);
     mysqli_stmt_execute($stmt);
     $results = mysqli_stmt_get_result($stmt);
+    //echo "<br>RESULTS:" . mysqli_fetch_assoc($results);
 
     // Fetch and display results
     while ($row = mysqli_fetch_assoc($results)) {
