@@ -2,8 +2,8 @@
 
 function displaySellerSales($username, $connection){
     SELECT 
-    MONTH(o.OrderDateTime) AS Month, 
-    YEAR(o.OrderDateTime) AS Year, 
+    DATE_FORMAT(o.OrderDateTime, '%m') AS Month, 
+    DATE_FORMAT(o.OrderDateTime, '%Y') AS Year, 
     COUNT(o.OrderID) AS TotalSales, 
     AVG(o.OrderCost) AS AverageSale 
     FROM orders o 
