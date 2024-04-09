@@ -1,0 +1,20 @@
+// Payment Page //
+
+- Positive Findings
+
+User control and freedom
+The system ensures that users select only one payment method at a time by unchecking every other checkbox except the currently selected one.
+
+User control and freedom
+Providing an option to add new payment methods or edit existing ones directly from this page will enhance user convenience.
+
+Recognition rather than recall
+Displaying payment method details reduces the need for users to recall previously entered information and understands better which option they should go with.
+
+- Potential Improvements
+
+Confirmation for Payment Selection
+As payment is a security prioritized process, adding a confirmation mechanism after selecting a payment method could prevent accidental selections. Providing users with the option to confirm their choice or undo their selection would help reduce the likelihood of errors and enhance user control.
+
+Recognition rather than recall
+As payment is a significant decision that is not easily reversible, providing a summary or review section before payment submission would help users confirm their choices.
