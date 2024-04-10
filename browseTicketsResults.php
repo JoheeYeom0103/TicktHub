@@ -30,7 +30,6 @@
              <!-- login? personinfo.html : login.html -->
             <li id="back"><a href="browseTickets.php">Back to Search</a></li>
 
-            <li><a href="login.php">Login/Sign Up</a></li>
             <li><a href="shoppingcart.php">View Cart</a></li>  <!-- UPDATE W/ CORRECT LINK  -->
 
         </ul>

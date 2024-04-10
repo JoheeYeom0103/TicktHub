@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create a new form element
         var form = document.createElement("form");
         form.setAttribute("method", "post");
-        form.setAttribute("action", "addNewMethod.php");
+        form.setAttribute("action", "php/addNewMethod_payment.php");
 
         // Hidden input field for payment method type
         var paymentTypeInput = document.createElement("input");

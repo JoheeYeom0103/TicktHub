@@ -1,12 +1,11 @@
 <?php
 // TODO fix add payment method button
 // php error check
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Session start & User Id retrieval
-session_start();
-$UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
+// Database connection
+include("php/dbConnect.php");
 
 if (isset($_SESSION["username"])){
     $username = $_SESSION["username"];
@@ -14,8 +13,14 @@ if (isset($_SESSION["username"])){
     $username = "null";
 }
 
-// Database connection
-include("php/dbConnect.php");
+// Assuming you have a database connection named $conn
+$username = $_SESSION["username"];
+$sql1 = "SELECT userID FROM user WHERE username = ?";
+$stmt = $connection->prepare($sql1);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+$UserID = $result->fetch_assoc()['userID'];
 
 /* Retreieve bank transfer data */
 $BankSql = "SELECT BankID, BankName, AccountHolderName, AccountNumber 
@@ -129,7 +134,7 @@ if($CreditPstmt) {
 <header>
     <h1>TicketHub</h1>
     <ul>
-        <li><a href="buyer_personalinfo.php">@<?php echo $username ?></a></li>
+        <li><a href="buyerPersonalInfo.php">@<?php echo $username ?></a></li>
         <li><a href="shoppingcart.php">View Cart</a></li>
     </ul>
 </header>

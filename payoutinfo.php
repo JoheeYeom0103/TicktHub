@@ -101,7 +101,7 @@ if($CreditPstmt) {
     <!-- Left side navigator -->
     <nav id="left-nav">
         <ul>
-            <li><a href="seller_personalinfo.php">Personal Info</a></li>
+            <li><a href="sellerPersonalInfo.php">Personal Info</a></li>
             <li><a href="#">Payout Info</a></li>
             <li><a href="createtickets.php">Create Events</a></li>
             <li><a href="salesManageEvents.php">Sales & Manage Events</a></li>

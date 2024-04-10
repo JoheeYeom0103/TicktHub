@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<script>alert('New record inserted successfully!');</script>";
-                    header('Location: paymentinfo.php');
+                    header('Location: ../paymentinfo.php');
                 } else {
                     // Statement execution failed
                     echo "Error: " . mysqli_stmt_error($stmt);
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<script>alert('New record inserted successfully!');</script>";
-                    header('Location: paymentinfo.php');
+                    header('Location: ../paymentinfo.php');
                 } else {
                     // Statement execution failed
                     echo "Error: " . mysqli_stmt_error($stmt);

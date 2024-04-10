@@ -5,6 +5,20 @@ header {
     background-color: #333333;
 }
 
+.logoutButton{
+    padding: 0.5em;
+    background-color:#333333;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #fff;
+    border: none;
+    font-size: 1em;
+}
+
+.logoutButton:hover{
+    background-color: #007bff;
+}
+
 ul {
     list-style-type: none;
     margin: 0;

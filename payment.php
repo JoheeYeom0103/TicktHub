@@ -2,11 +2,23 @@
 
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
+    include("php/dbConnect.php");
+
 
     session_start();
-    $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
 
-    include("php/dbConnect.php");
+    $username = $_SESSION["username"];
+    $sql1 = "SELECT userID FROM user WHERE username = ?";
+    $stmt = $connection->prepare($sql1);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $UserID = $result->fetch_assoc()['userID'];
+
+
+    //$UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1;
+    $TotalCost = isset($_GET['TotalCost']) ? $_GET['TotalCost'] : 1;
+
 
     // Getting BankTransfer data from DB
     $BankSql = "SELECT BankID, BankName, AccountHolderName, AccountNumber 
@@ -88,28 +100,50 @@
                 }
             });
         });
+
+        function validateForm() {
+            
+            var radioButtons = document.querySelectorAll('input[name="saved-payment-method"]');
+            var isChecked = false;
+
+            // Loop through radio buttons to check if any are checked
+            for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].checked) {
+                    isChecked = true;
+                    break;
+                }
+            }
+
+            // If no radio button is checked, alert the user and prevent form submission
+            if (!isChecked) {
+                alert("Please select a payment method.");
+                return false; // Prevent form submission
+            }
+
+            return true;
+        }
     </script>
 </head>
 <body>
     <header>
         <h1>TicketHub</h1>
         <ul>
-            <li><a href="browseTickets.php">Home</a></li>
-            <li><a href="shoppingcart.php">View Cart</a></li>
+            <?php include("php/showlinks.php");?>
         </ul>
     </header>
 
+    <form method="post" action="php/transaction.php" onsubmit="return validateForm()">
     <div id="container">
         <!-- Bank Transfer Information -->
         <div class="payment-method-container">
             <h2>Bank Transfer</h2>
             <div class="payment-info">
                 <?php foreach ($bankTransfers as $bankTransfer): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <!-- <form method="post" action="deleteMethod.php"> -->
                         <table class="payment-table">
                         <tr>
                             <td colspan="2" class="checkbox-container"> 
-                                <input type="checkbox" name="saved-payment-method">
+                                <input type="radio" name="saved-payment-method" value="Bank Transfer">
                                 Pay with this method
                             </td>
                         </tr>
@@ -126,7 +160,7 @@
                                 <td><?php echo $bankTransfer['AccountNumber']; ?></td>
                             </tr>
                         </table>
-                    </form>
+                    <!-- </form> -->
                     <br/>
                 <?php endforeach; ?>
             </div>
@@ -137,11 +171,11 @@
             <h2>Credit Card</h2>
             <div class="payment-info">
                 <?php foreach ($creditCards as $creditCard): ?>
-                    <form method="post" action="deleteMethod.php">
+                    <!-- <form method="post" action="deleteMethod.php"> -->
                         <table class="payment-table">
                             <tr>
                                 <td colspan="2" class="checkbox-container"> 
-                                    <input type="checkbox" name="saved-payment-method">
+                                    <input type="radio" name="saved-payment-method" value="Credit Card">
                                     Pay with this method
                                 </td>
                             </tr>
@@ -162,7 +196,7 @@
                                 <td><?php echo $creditCard['CVC']; ?></td>
                             </tr>
                         </table>
-                    </form>
+                    <!-- </form> -->
                     <br/>
                 <?php endforeach; ?>
             </div>
@@ -172,7 +206,7 @@
         <div class="payment-method-container">
             <h2>PayPal</h2>
             <div class="payment-info">
-                <p><input type="checkbox" id="paypal-checkbox" name="saved-payment-method">Pay with this method<p>
+                <p><input type="radio" id="paypal-checkbox" name="saved-payment-method">Pay with this method<p>
                 <img src="images/paypal.png" alt="PayPal Logo" id="paypal-logo">
             </div>
         </div>
@@ -184,10 +218,11 @@
     - Add form with method, action 
     - Write php script to handle the request(transction) 
     - If request is handled successfully, redirect to the orderConfirmation.html -->
-    <h2 id="total">Total: $</h2>
+    <h2 id="total">Total: $<?php echo $TotalCost?></h2>
     <div id="proceed-payment">
-        <button type="submit" name="submit">Proceed Payment</button>
+        <button type="submit" id="submit" name="submit">Proceed Payment</button>
     </div>
+    </form>
     <footer>
         <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
     </footer>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<?php 
+    session_start();
+    $username = $_SESSION["username"];
+
+?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation</title>
@@ -47,8 +53,7 @@
     <h1>TicketHub</h1>
     <ul>
        <!-- must have been logged in -->
-       <li><a href="personalinfo.php">User</a></li>
-       <li><a href="shoppingcart.php">View Cart</a></li>
+       <li><a href="browseTickets.php">Home</a></li>
     </ul>
 </header>
 
@@ -59,10 +64,7 @@
         <p>Your order has been successfully placed.</p>
     </div>
 </div>
-<?php include "dbConnect.php";
-    // TODO update insertOrder method with correct variable parameters.
-    // insertOrder($connection, );
-    mysqli_close($connection); ?>
+
 <footer>
     <p>&copy; 2024 Ticket Hub. All Rights Reserved.</p>
 </footer>

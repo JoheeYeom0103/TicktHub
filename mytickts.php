@@ -33,7 +33,7 @@
     <h1>TicketHub</h1>
     <ul>
         <!-- The user must have been logged in -->
-        <li><a href="buyer_personalinfo.php">@<?php echo $username ?></a></li>
+        <li><a href="buyerPersonalInfo.php">@<?php echo $username ?></a></li>
         <li><a href="shoppingcart.php">View Cart</a></li>
     </ul>
 </header>

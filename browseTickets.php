@@ -26,8 +26,8 @@
         var addToCartButtons = document.querySelectorAll('#addtocart');
         addToCartButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            var eventName = button.getAttribute('EventName');
-            $.post("addToCart.php", { EventName: eventName}, function(response) {
+            var eventID = button.getAttribute('EventID');
+            $.post("addToCart.php", { EventID: eventID}, function(response) {
                 alert("Added to Cart!");
             });
         });
@@ -66,7 +66,7 @@
         echo "<p>Date: ".$row['DateTime']."</p>";
         echo "<p>Location: ".$row['Location']."</p>";
         echo "<p>Price: ".$row['Price']."</p>";
-        echo "<a id='addtocart' EventName='".$row['EventName']."' class='btn'>Add to Cart</a>";
+        echo "<a id='addtocart' EventID='".$row['EventID']."' class='btn'>Add to Cart</a>";
         echo "</div>";
     }
     mysqli_free_result($results);

@@ -88,3 +88,11 @@ body {
     margin-left: 1em;
     height: auto;
 }
+
+#total {
+    text-align: center;
+}
+
+h2 {
+    margin-right: 20px;
+}

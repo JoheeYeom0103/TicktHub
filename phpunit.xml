@@ -2,10 +2,15 @@
 <phpunit bootstrap="vendor/autoload.php"
     colors="true"
     stopOnFailure="true">
+    <!-- <php>
+        <const name="DB_HOST" value="localhost"/>
+        <const name="DB_USERNAME" value="tatkg24"/>
+        <const name="DB_PASSWORD" value="C0sc360!!"/>
+        <const name="DB_DATABASE" value="tickethub"/>
+    </php> -->
     <testsuites>
         <testsuite name="Tickethub">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
-

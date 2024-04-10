@@ -18,7 +18,7 @@
             $new_email = getInputValue('email');
             $new_phoneNum = getInputValue('phoneNumber');
 
-            $updateSQL = "UPDATE User SET UserName=?, FirstName=?, MiddleName=?, LastName=?, Email=?, Password=?, PhoneNumber=? WHERE UserId=?";
+            $updateSQL = "UPDATE user SET Username=?, FirstName=?, MiddleName=?, LastName=?, Email=?, Password=?, Phone=? WHERE UserId=?";
             $updatePstmt = mysqli_prepare($connection, $updateSQL);
 
             if ($updatePstmt) {
@@ -31,8 +31,7 @@
                     $old_firstname = $new_firstName;
                     $old_middlename = $new_middleName;
                     $old_lastname = $new_lastName;
-                    $hashed_password = md5($new_password);
-                    $old_password = $hashed_password;
+                    $old_password = $new_password;
                     $old_email = $new_email;
                     $old_phonenum = $new_phoneNum;
                     echo "<script>alert('Changes have been successfully saved!'); window.location.href = 'buyerPersonalInfo.php';</script>";
