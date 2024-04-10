@@ -44,7 +44,7 @@ class payoutInsertTest extends TestCase
          ];
  
          // Prepare the SQL statement for inserting into BankTransfer table
-         $sql = "INSERT INTO BankTransfer (UserID, BankName, AccountHolderName, AccountNumber)
+         $sql = "INSERT INTO banktransfer (UserID, BankName, AccountHolderName, AccountNumber)
                  VALUES (?, ?, ?, ?)";
          $stmt = mysqli_prepare(self::$connection, $sql);
  
@@ -74,7 +74,7 @@ class payoutInsertTest extends TestCase
         ];
 
         // Prepare the SQL statement for inserting into CreditCard table
-        $sql = "INSERT INTO CreditCard (UserID, CardNumber, ExpiryDate, CardHolderName, CVC)
+        $sql = "INSERT INTO creditcard (UserID, CardNumber, ExpiryDate, CardHolderName, CVC)
                 VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare(self::$connection, $sql);
 
