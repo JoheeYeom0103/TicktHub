@@ -1,4 +1,3 @@
-User
 <?php
 
 use PHPUnit\Framework\TestCase;
@@ -51,7 +50,7 @@ class buyerPersonalInfoTest extends TestCase
         $email = 'test@example.com';
 
         // Prepare and execute the insert query for the User table
-        $stmt = mysqli_prepare(self::$connection, 'INSERT INTO User (Username, Email) VALUES (?, ?)');
+        $stmt = mysqli_prepare(self::$connection, 'INSERT INTO user (Username, Email) VALUES (?, ?)');
         mysqli_stmt_bind_param($stmt, 'ss', $username, $email);
         mysqli_stmt_execute($stmt);
 
@@ -61,7 +60,7 @@ class buyerPersonalInfoTest extends TestCase
 
         // Verify the inserted data 
         $insertedId = mysqli_insert_id(self::$connection);
-        $result = mysqli_query(self::$connection, "SELECT * FROM User WHERE UserID = $insertedId");
+        $result = mysqli_query(self::$connection, "SELECT * FROM user WHERE UserID = $insertedId");
         
         /* 
             mysqli_fetch_assoc($result): Fetches a result row as an associative array from the result set obtained by executing a query 
