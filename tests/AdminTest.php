@@ -58,8 +58,8 @@ class AdminTest extends TestCase
             // If an exception is thrown, fail the test and display the exception message
             $this->fail("An exception was thrown: " . $e->getMessage());
         } finally {
-            // Ensure the output buffer is closed even if an exception occurs
-            ob_end_clean();
+            // // Ensure the output buffer is closed even if an exception occurs
+            // ob_end_clean();
             
             // Close database connection
             $this->connection->close();
