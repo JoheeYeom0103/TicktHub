@@ -78,7 +78,7 @@ class EventCreatorTest extends TestCase
         $eventID = $stmt->insert_id;
 
         // Prepare insert statement for ticketinfo table
-        $stmt = self::$connection->prepare("INSERT INTO ticketInfo (EventID, TicketName, Price) VALUES (?, ?, ?)");
+        $stmt = self::$connection->prepare("INSERT INTO ticketinfo (EventID, TicketName, Price) VALUES (?, ?, ?)");
         
         // Bind parameters
         $ticketName = "General Admission"; // Example ticket name
@@ -109,7 +109,7 @@ class EventCreatorTest extends TestCase
     protected function getInsertedTicketID()
     {
         // Fetch the last inserted ticket ID
-        $result = self::$connection->query("SELECT MAX(TicketID) AS MaxTicketID FROM ticketInfo");
+        $result = self::$connection->query("SELECT MAX(TicketID) AS MaxTicketID FROM ticketinfo");
         if ($result && $row = $result->fetch_assoc()) {
             return $row["MaxTicketID"];
         }
