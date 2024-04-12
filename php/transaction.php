@@ -64,7 +64,7 @@
 
         mysqli_query($connection, $sql);
     }
-    mysqli_close($connection);
+    //mysqli_close($connection);
     
     header('Location: ../orderconfirm.php');
 
