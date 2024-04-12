@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 require_once "php/transaction.php";
-require_once "browseTicketsResults.php";
+
 class TransactionTest extends TestCase {
 
     protected static $connection;
@@ -15,11 +15,10 @@ class TransactionTest extends TestCase {
         $pass = getenv('DB_PASSWORD');
         $dbname = getenv('DB_DATABASE');
 
-        self::$connection = new mysqli_connect($host, $user, $pass, $dbname);
+        self::$connection = new mysqli($host, $user, $pass, $dbname);
 
-        // If connection is failed
-        if (!self::$connection) {
-            die('Failed to connect to MySQL: ' . mysqli_connect_error());
+        if (self::$connection->connect_error) {
+            die('Failed to connect to MySQL: ' . self::$connection->connect_error);
         }
     }
 
