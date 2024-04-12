@@ -1,5 +1,5 @@
 <?php
-    include("dbConnect.php");
+    include "dbConnect.php";
     
     transaction($connection);
     removeFromCart($connection);
@@ -67,3 +67,5 @@
     mysqli_close($connection);
     
     header('Location: ../orderconfirm.php');
+
+    ?>
