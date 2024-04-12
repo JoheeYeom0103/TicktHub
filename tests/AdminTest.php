@@ -21,13 +21,7 @@ class AdminTest extends TestCase
             die("Connection failed: " . $this->connection->connect_error);
         }
     }
-
-    protected function tearDown(): void {
-        // No need to close the database connection here
-        // Close database connection after each test
-        // $this->connection->close();
-    }
-
+    
     public function testDisplayUsers()
     {
         // Call the displayUsers function with the mysqli connection

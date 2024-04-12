@@ -1,31 +1,20 @@
 <?php
-    session_start();
-    include "dbConnect.php";
+    // include "dbConnect.php";
     
-    // Declaring UserID, PaymentID, saved-payment-method as variable and TypesOfTicket and TicketQuantity as array
-    $UserID;
-    $PaymentID;
-    $spm;
-    $TypesOfTicket = [];
-    $TicketQuantity = [];
-    //transaction($connection);
+    // transaction($connection);
+    // removeFromCart($connection);
 
-    //function transaction($connection) {
+   function transaction($connection) {
+        $spm;
         // Initialize UserID, PaymentID, and spm
         $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 1; 
-        if (isset($_POST["PaymentID"])) {
-            $PaymentID = $_POST["PaymentID"];
-        }
-        if (isset($_POST["saved-payment-method"])) {
-            $spm = $_POST["saved-payment-method"];
-        }
+        $spm = isset($_POST["saved-payment-method"]) ? $_POST["saved-payment-method"] : "Bank Transfer";
 
         // Get orderID
         $sql = "SELECT MAX(OrderID) as OrderID FROM orders";
         $results = mysqli_query($connection, $sql);
         $row = mysqli_fetch_assoc($results);
         $OrderID = $row['OrderID'] + 1;
-
 
         // Get payment method for UserID
         $sql = "SELECT * FROM payment WHERE UserID = '$UserID' AND PaymentMethod = '$spm'";
@@ -59,13 +48,24 @@
             $OrderDateTime = date("y/m/d h:m:s");
 
             // Insert into orders table
-            $sql = "INSERT INTO orders(UserID, PaymentID, TicketID, TicketQuantity, OrderCost, OrderDateTime, OrderStatus)
-                    VALUES ('$UserID', '$PaymentID', '$Ticket', '$Quantity', '$Cost', '$OrderDateTime', '1')";
+            $sql = "INSERT INTO orders(OrderID, UserID, PaymentID, TicketID, TicketQuantity, OrderCost, OrderDateTime, OrderStatus)
+                    VALUES ('$OrderID','$UserID', '$PaymentID', '$Ticket', '$Quantity', '$Cost', '$OrderDateTime', '1')";
 
             mysqli_query($connection, $sql);
+            mysqli_free_result($results);
         }
-    // }
-    mysqli_free_result($results);
-    mysqli_close($connection);
+    }
+    
+    function removeFromCart($connection) {
+
+        $UserID = isset($_SESSION['userId']) ? $_SESSION['userId'] : 2; 
+
+        $sql = "DELETE FROM cart WHERE UserID = '$UserID'";
+
+        mysqli_query($connection, $sql);
+    }
+    //mysqli_close($connection);
     
     header('Location: ../orderconfirm.php');
+
+    ?>
