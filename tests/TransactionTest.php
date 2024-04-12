@@ -15,10 +15,11 @@ class TransactionTest extends TestCase {
         $pass = getenv('DB_PASSWORD');
         $dbname = getenv('DB_DATABASE');
 
-        self::$connection = new mysqli($host, $user, $pass, $dbname);
+        self::$connection = mysqli_connect($host, $user, $pass, $dbname);
 
-        if (self::$connection->connect_error) {
-            die('Failed to connect to MySQL: ' . self::$connection->connect_error);
+        // If connection is failed
+        if (!self::$connection) {
+            die('Failed to connect to MySQL: ' . mysqli_connect_error());
         }
     }
 
