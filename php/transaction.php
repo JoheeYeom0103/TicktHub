@@ -1,5 +1,5 @@
 <?php
-    // include "dbConnect.php";
+    require_once("dbConnect.php");
     
     transaction($connection);
     removeFromCart($connection);
