@@ -15,7 +15,7 @@ class TransactionTest extends TestCase {
         $pass = getenv('DB_PASSWORD');
         $dbname = getenv('DB_DATABASE');
 
-        self::$connection = mysqli_connect($host, $user, $pass, $dbname);
+        self::$connection = new mysqli_connect($host, $user, $pass, $dbname);
 
         // If connection is failed
         if (!self::$connection) {
