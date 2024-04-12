@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2024 at 05:00 AM
+-- Generation Time: Apr 13, 2024 at 12:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,7 +59,11 @@ CREATE TABLE `banktransfer` (
 INSERT INTO `banktransfer` (`BankID`, `UserID`, `BankName`, `AccountHolderName`, `AccountNumber`) VALUES
 (1, 2, 'Bank X', 'jane_smith', '1234567890123456'),
 (2, 3, 'Bank Y', 'mike_jones', '9876543210987654'),
-(3, 1, 'Bank Z', 'john_doe', '9876123456789012');
+(3, 1, 'Bank Z', 'john_doe', '9876123456789012'),
+(5, 1, 'Bank Y', 'Jim_Boe', '9876123456789011'),
+(6, 1, '', '', ''),
+(7, 1, 'Bankz', 'Jim_Boe', '9876123456789011'),
+(8, 1, 'Bank Y', 'Jim_Boe', '9876123456789011');
 
 -- --------------------------------------------------------
 
@@ -77,7 +81,11 @@ CREATE TABLE `buyer` (
 
 INSERT INTO `buyer` (`BuyerID`) VALUES
 (1),
-(3);
+(3),
+(5),
+(6),
+(7),
+(8);
 
 -- --------------------------------------------------------
 
@@ -122,9 +130,10 @@ CREATE TABLE `creditcard` (
 
 INSERT INTO `creditcard` (`CardID`, `UserID`, `CardNumber`, `ExpiryDate`, `CardHolderName`, `CVC`) VALUES
 (1, 1, '1234567890123456', '2025-12-01', 'john_doe', 123),
-(2, 1, '9876543210987654', '2024-10-01', 'john_doe', 456),
 (3, 2, '1111222233334444', '2026-06-01', 'jane_smith', 789),
-(4, 3, '4444333322221111', '2025-08-01', 'mike_jones', 246);
+(4, 3, '4444333322221111', '2025-08-01', 'mike_jones', 246),
+(11, 1, '', '0000-00-00', '', 0),
+(12, 1, '12345678910111', '2025-09-08', 'jim_boe', 345);
 
 -- --------------------------------------------------------
 
@@ -153,9 +162,8 @@ INSERT INTO `event` (`EventID`, `AdminID`, `Status`, `EventName`, `Location`, `D
 (4, 4, 'Pending', 'Event', 'Fun Event', '2024-04-26 18:06:00', NULL),
 (5, 4, 'Pending', 'Great Concert', 'Vancouver', '2024-04-26 18:06:00', NULL),
 (6, 4, 'Pending', 'Please Work', 'Please', '2024-04-30 18:13:00', NULL),
-(7, 4, 'Pending', 'Music Thing', 'Event', '2024-05-03 18:17:00', 2),
-(8, 4, 'Pending', 'Party', 'UBC', '2024-04-20 18:59:00', 2),
-(9, 4, 'Pending', '310 Party', 'My House', '2024-05-04 19:12:00', 2);
+(7, 4, 'Rejected', 'Music Thing', 'Event', '2024-05-03 18:17:00', 2),
+(8, 4, 'Pending', 'Party', 'UBC', '2024-04-20 18:59:00', 2);
 
 -- --------------------------------------------------------
 
@@ -167,7 +175,7 @@ CREATE TABLE `orders` (
   `OrderID` int(11) NOT NULL,
   `UserID` int(11) DEFAULT NULL,
   `PaymentID` int(11) DEFAULT NULL,
-  `TicketID` int(11) DEFAULT NULL,
+  `TicketID` int(11) NOT NULL,
   `TicketQuantity` int(11) DEFAULT NULL,
   `OrderCost` decimal(10,2) DEFAULT NULL,
   `OrderDateTime` datetime DEFAULT NULL,
@@ -183,7 +191,11 @@ INSERT INTO `orders` (`OrderID`, `UserID`, `PaymentID`, `TicketID`, `TicketQuant
 (2, 2, 2, 2, 1, 25.00, '2024-03-12 11:00:00', 1),
 (3, 1, 4, 1, 2, 40.00, '2024-04-09 04:04:08', 1),
 (4, 1, 4, 1, 2, 40.00, '2024-04-09 04:04:18', 1),
-(5, 1, 4, 2, 1, 50.00, '2024-04-09 04:04:18', 1);
+(5, 1, 4, 2, 1, 50.00, '2024-04-09 04:04:18', 1),
+(6, 1, 1, 1, 2, 40.00, '2024-04-09 08:04:06', 1),
+(7, 1, 1, 2, 1, 50.00, '2024-04-09 08:04:06', 1),
+(8, 1, 4, 1, 2, 40.00, '2024-04-09 08:04:19', 1),
+(9, 1, 4, 2, 1, 50.00, '2024-04-09 08:04:19', 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +270,8 @@ INSERT INTO `ticketinfo` (`TicketID`, `SellerID`, `EventID`, `TicketName`, `Tick
 (5, 2, 6, 'Please Work', 'Work', 1.00, NULL, NULL, NULL),
 (6, 2, 7, 'Music Thing', '123', 5.00, NULL, NULL, NULL),
 (7, 2, 8, 'Party', '123', 12.00, NULL, NULL, NULL),
-(8, 2, 9, '310 Party', 'epic party\r\n', 12.00, NULL, NULL, NULL);
+(8, 2, 9, '310 Party', 'epic party\r\n', 12.00, NULL, NULL, NULL),
+(9, 2, 10, 'My Event', 'Super Fun Event', 7.50, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,7 +295,8 @@ INSERT INTO `ticketinventory` (`TicketID`, `SellerID`, `TicketQty`, `TicketStatu
 (1, 2, 50, 1, 0),
 (7, 2, 50, 1, 0),
 (8, 2, 123, 0, 0),
-(9, 2, 100, 0, 0);
+(9, 2, 150, 0, 0),
+(10, 2, 100, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -307,10 +321,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Username`, `FirstName`, `MiddleName`, `LastName`, `Birthdate`, `Password`, `Email`, `Phone`) VALUES
-(1, 'john_doe', 'John', '', 'Doe', '1990-05-15', 'password1', 'john.doe@example.com', '403-123-4567'),
+(1, 'john_doe', 'John', '', 'Doe', '1990-05-15', 'John123123123', 'john.doe@example.com', '403-123-4567'),
 (2, 'jane_smith', 'Jane', '', 'Smith', '1985-08-22', 'password2', 'jane.smith@example.com', '404-234-5678'),
 (3, 'mike_jones', 'Mike', '', 'Jones', '1995-11-10', 'password3', 'mike.jones@example.com', '403-345-6789'),
-(4, 'admin_user', 'Admin', '', 'User', '1980-01-01', 'adminpass', 'admin@example.com', '587-456-7890');
+(4, 'admin_user', 'Admin', '', 'User', '1980-01-01', 'adminpass', 'admin@example.com', '587-456-7890'),
+(5, 'NewUser', 'Bill', 'John', 'Bob', NULL, 'password1234', 'bill@gmail.com', '678-900-6789'),
+(6, 'newBuyer1', 'Jim', 'John', 'Boe', NULL, 'password1234', 'jim@john.ca', '240-789-1234'),
+(7, 'joan_12', 'Joan', 'Billie', 'Smith', NULL, 'password1234', 'joan@gmail.com', '250-901-0081'),
+(8, 'newSignup', 'Jim', 'Boe', 'Jill', NULL, 'password1234', 'jimmy@gmail.com', '450-890-0099');
 
 --
 -- Indexes for dumped tables
@@ -353,7 +371,7 @@ ALTER TABLE `event`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`OrderID`);
+  ADD PRIMARY KEY (`OrderID`,`TicketID`);
 
 --
 -- Indexes for table `payment`
@@ -398,25 +416,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `banktransfer`
 --
 ALTER TABLE `banktransfer`
-  MODIFY `BankID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `BankID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `creditcard`
 --
 ALTER TABLE `creditcard`
-  MODIFY `CardID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CardID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -428,13 +446,13 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `ticketinfo`
 --
 ALTER TABLE `ticketinfo`
-  MODIFY `TicketID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `TicketID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
