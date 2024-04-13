@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once("dbConnect.php"); 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $userID = $_POST['username'];
