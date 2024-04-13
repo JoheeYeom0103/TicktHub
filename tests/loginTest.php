@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once "php/loginAction.php"; // Include the file containing the functions to be tested
 
-class LoginActionTest extends TestCase
+class loginTest extends TestCase
 {
     protected static $connection;
 
