@@ -2,6 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once "php/loginAction.php";
+
 class LoginTest extends TestCase
 {
     protected static $connection;
@@ -52,7 +54,6 @@ class LoginTest extends TestCase
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
         // Prepare and execute the login action
-        require_once 'php/loginAction.php';
         $result = login(self::$connection);
 
         // Assert that the result is not empty
