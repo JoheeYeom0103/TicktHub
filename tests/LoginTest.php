@@ -48,9 +48,8 @@ class LoginTest extends TestCase
     public function testValidLogin()
     {
         // Assuming you have a database setup for testing
-        // Replace 'test_user' and 'test_password' with valid test credentials
-        $_POST['username'] = 'test_user';
-        $_POST['password'] = 'test_password';
+        $_POST['username'] = 'john_doe';
+        $_POST['password'] = 'John123123123';
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
         // Prepare and execute the login action
