@@ -1,9 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once "../login.php"; 
-require_once "../php/loginAction.php"; 
-
 class LoginTest extends TestCase
 {
     protected static $connection;
