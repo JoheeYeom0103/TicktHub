@@ -1,6 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
+require_once "php/adminAction.php";
+
 class LoginTest extends TestCase
 {
     protected static $connection;
