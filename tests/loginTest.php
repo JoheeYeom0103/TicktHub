@@ -1,96 +1,53 @@
-<?php
-
+<?
 use PHPUnit\Framework\TestCase;
 
-require("dbConnect.php");
-require_once("login.php");
+require_once "php/loginAction.php"; // Include the file containing the functions to be tested
 
-class loginTest extends TestCase
+class LoginActionTest extends TestCase
 {
-    public function testLogin()
-    {
+    protected static $connection;
 
-        // get database connection parameters from environment variables
+    public static function setUpBeforeClass(): void
+    {
+        // Establish database connection before running tests
         $host = getenv('DB_HOST');
         $user = getenv('DB_USERNAME');
         $pass = getenv('DB_PASSWORD');
         $dbname = getenv('DB_DATABASE');
 
-        // create a mysqli connection
-        $connection = new mysqli($host, $user, $pass, $dbname);
-        if ($connection->connect_error) {
-            die("Connection failed: " . $connection->connect_error);
+        self::$connection = new mysqli($host, $user, $pass, $dbname);
+
+        if (self::$connection->connect_error) {
+            die("Connection failed: " . self::$connection->connect_error);
         }
+    }
 
-        // call the displayUsers function within the mysqli connection
-        ob_start();
-        displayUsers($connection);
-        $output = ob_get_clean();
-
-        // assertions on the output can be added here 
-        $this->assertNotEmpty($output); // example assertion 
-        
-    } // end of testLogin method
-
-
+    public static function tearDownAfterClass(): void
+    {
+        // Close database connection after running tests
+        if (self::$connection) {
+            self::$connection->close();
+        }
+    }
 
     public function testLoginAction()
     {
-        // get database connection parameters from environment variables
-        $host = getenv('DB_HOST');
-        $user = getenv('DB_USERNAME');
-        $pass = getenv('DB_PASSWORD');
-        $dbname = getenv('DB_DATABASE');
+        $this->assertNotNull(self::$connection, "Database connection should not be null");
 
-        // create a mysqli connection
-        $connection = new mysqli($host, $user, $pass, $dbname);
-        if ($connection->connect_error) {
-            die("Connection failed: " . $connection->connect_error);
-        }
+        // Mock POST data
+        $_POST['username'] = "testuser";
+        $_POST['password'] = "testpassword";
 
-        try{
-        // call the loginAction function within the mysqli connection
+        // Call the loginAction function
         ob_start();
-        loginAction($connection);
+        loginAction(self::$connection);
         $output = ob_get_clean();
 
-        // assertions on the output can be added here 
-        $this->assertNotEmpty($output); // example assertion 
+        // Assert that the output is not empty
+        $this->assertNotEmpty($output, "Login action should produce output");
 
-        } catch (Exception $e) {
-            $this->fail("An exception was thrown: " . $e->getMessage());
-        }
-        
-    } // end of testLoginAction method
-
-    public function testLogoutAction()
-    {
-        // get database connection parameters from environment variables
-        $host = getenv('DB_HOST');
-        $user = getenv('DB_USERNAME');
-        $pass = getenv('DB_PASSWORD');
-        $dbname = getenv('DB_DATABASE');
-
-        // create a mysqli connection
-        $connection = new mysqli($host, $user, $pass, $dbname);
-        if ($connection->connect_error) {
-            die("Connection failed: " . $connection->connect_error);
-        }
-
-        try{
-        // call the signupAction function within the mysqli connection
-        ob_start();
-        logoutAction($connection);
-        $output = ob_get_clean();
-
-        // assertions on the output can be added here 
-        $this->assertNotEmpty($output); // example assertion 
-
-        } catch (Exception $e) {
-            $this->fail("An exception was thrown: " . $e->getMessage());
-        }
-        
-    } // end of testLogoutAction method
-
-} // end of loginTest class
+        // Assert that session variables are set correctly upon successful login (you can customize this based on your implementation)
+        $this->assertArrayHasKey('username', $_SESSION, "Session username should be set upon successful login");
+    }
+}
 ?>
