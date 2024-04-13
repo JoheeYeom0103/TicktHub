@@ -1,6 +1,9 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
-require_once 'signup.php'; // Include the script you want to test
+
+use PHPUnit\Framework\TestCase;
+
+// require("dbConnect.php");
+require_once("signup.php");
 
 class SignupTest extends PHPUnit_Framework_TestCase
 {
