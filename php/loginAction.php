@@ -1,9 +1,11 @@
 <?php
 
 session_start();
-include("dbConnect.php");
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    include("dbConnect.php");
     
     $userID = $_POST['username'];
     $password = $_POST['password'];
