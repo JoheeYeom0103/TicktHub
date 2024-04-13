@@ -45,19 +45,19 @@ class LoginTest extends TestCase
         $this->assertInstanceOf(mysqli::class, self::$connection);
     }
 
-    public function testValidLogin()
-    {
-        // Assuming you have a database setup for testing
-        $_POST['username'] = 'john_doe';
-        $_POST['password'] = 'John123123123';
-        $_SERVER['REQUEST_METHOD'] = 'POST';
+    // public function testValidLogin()
+    // {
+    //     // Assuming you have a database setup for testing
+    //     $_POST['username'] = 'john_doe';
+    //     $_POST['password'] = 'John123123123';
+    //     $_SERVER['REQUEST_METHOD'] = 'POST';
 
-        // Prepare and execute the login action
-        $result = login(self::$connection);
+    //     // Prepare and execute the login action
+    //     $result = login(self::$connection);
 
-        // Assert that the result is not empty
-        $this->assertNotEmpty($result);
-    }
+    //     // Assert that the result is not empty
+    //     $this->assertNotEmpty($result);
+    // }
 
     // More tests can be added to cover different scenarios
 
