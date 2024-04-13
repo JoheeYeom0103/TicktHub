@@ -1,9 +1,10 @@
-<?
+<?php
 use PHPUnit\Framework\TestCase;
 
-require_once "php/loginAction.php"; // Include the file containing the functions to be tested
+require_once "../login.php"; 
+require_once "../php/loginAction.php"; 
 
-class loginTest extends TestCase
+class LoginTest extends TestCase
 {
     protected static $connection;
 
