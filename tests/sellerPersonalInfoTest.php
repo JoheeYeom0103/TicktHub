@@ -1,4 +1,3 @@
-User
 <?php
 
 use PHPUnit\Framework\TestCase;
